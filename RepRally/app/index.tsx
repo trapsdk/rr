@@ -9,11 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {useFonts} from "expo-font";
-
-
-
-const imgLogo = <Image source= {require('./img/rrlogo.png')}/>
-
+import {router} from "expo-router";
 
 export default function Welcome(){
 
@@ -21,29 +17,23 @@ export default function Welcome(){
         "Poppins-Regular": require("./fonts/Poppins-Regular.ttf"),
     });
 
-
     return (
-
         <ImageBackground source = {require('./img/bg.png')} style={styles.bg}>
-        <SafeAreaView>
-
-            <View style = {styles.container}>
-                <Image style={styles.image} source={require('./img/rrlogo.png')}/>
-            </View>
-
-            <View style={styles.textcenter}>
-                <Text style={styles.welcometext}>Welcome! </Text>
-            </View>
-
-
-            <View style={styles.containerThree}>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttontext}>Get Started</Text>
-                </TouchableOpacity>
-                    <Text style={styles.annotatedtext}>Already have an account? Click <Text style={{textDecorationLine: 'underline'}}>here</Text> to login.</Text>
-            </View>
-
-        </SafeAreaView>
+            <SafeAreaView>
+                <View style = {styles.container}>
+                    <Image style={styles.image} source={require('./img/rrlogo.png')}/>
+                </View>
+                <View style={styles.containerTwo}>
+                </View>
+                <View style={styles.containerThree}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{router.push('./signup')}}>
+                        <Text style={styles.buttontext}>Get Started</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.annotatedtext}>
+                        Already have an account? Click <Text onPress={()=> router.push('/login')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
+                    </Text>
+                </View>
+            </SafeAreaView>
         </ImageBackground>
     );
 }
@@ -52,9 +42,10 @@ const styles = StyleSheet.create({
     button:{
         backgroundColor: 'black',
         borderRadius: 50,
-        paddingHorizontal: 100,
+        paddingHorizontal: 80,
         paddingVertical: 25,
         bottom: -200,
+
     },
     buttontext:{
         fontSize: 30,
@@ -80,7 +71,7 @@ const styles = StyleSheet.create({
         bottom: -225,
         fontWeight: "bold",
     },
-    textcenter: {
+    containerTwo:{
         flex: 2,
         justifyContent: 'center', // Center vertically
         alignItems: 'center', // Center horizontally
