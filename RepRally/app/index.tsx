@@ -26,11 +26,11 @@ export default function Welcome(){
                 <View style={styles.containerTwo}>
                 </View>
                 <View style={styles.containerThree}>
-                    <TouchableOpacity style={styles.button} onPress={()=>{router.push('./signup')}}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{router.navigate('./signup')}}>
                         <Text style={styles.buttontext}>Get Started</Text>
                     </TouchableOpacity>
                     <Text style={styles.annotatedtext}>
-                        Already have an account? Click <Text onPress={()=> router.push('/login')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
+                        Already have an account? Click <Text onPress={()=> router.navigate('/login')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
                     </Text>
                 </View>
             </SafeAreaView>
