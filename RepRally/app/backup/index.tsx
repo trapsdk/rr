@@ -14,14 +14,14 @@ import {router} from "expo-router";
 export default function Welcome(){
 
     const [fontsLoaded] = useFonts({
-        "Poppins-Regular": require("./fonts/Poppins-Regular.ttf"),
+        "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     });
 
     return (
-        <ImageBackground source = {require('./img/bg.png')} style={styles.bg}>
+        <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
             <SafeAreaView>
                 <View style = {styles.container}>
-                    <Image style={styles.image} source={require('./img/rrlogo.png')}/>
+                    <Image style={styles.image} source={require('../img/rrlogo.png')}/>
                 </View>
                 <View style={styles.containerTwo}>
                 </View>
