@@ -17,6 +17,7 @@ export default function Welcome(){
         "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     });
 
+
     return (
         <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
             <SafeAreaView>

@@ -28,6 +28,7 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
+                    headerShown: false,
 
                 }}
             />
@@ -35,6 +36,7 @@ export default function TabLayout() {
                 name="explore"
                 options={{
                     title: 'Explore',
+                    headerShown: false,
 
                 }}
             />
