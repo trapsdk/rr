@@ -3,6 +3,7 @@ import {Link, router, useRouter} from 'expo-router'
 import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity} from 'react-native'
 import React from 'react'
 import {customStyles} from "@/constants/custom-styles";
+import {SignIn} from "@clerk/clerk-react";
 
 
 export default function Page() {
@@ -27,7 +28,7 @@ export default function Page() {
             // and redirect the user
             if (signInAttempt.status === 'complete') {
                 await setActive({ session: signInAttempt.createdSessionId })
-                router.replace('/')
+                router.replace('/home')
             } else {
                 // If the status isn't complete, check why. User might need to
                 // complete further steps.
@@ -59,12 +60,12 @@ export default function Page() {
                 <Text style={customStyles.buttontext}>login</Text>
             </TouchableOpacity>
 
-            {/*<View>*/}
-            {/*    <Text>Don't have an account?</Text>*/}
-            {/*        <Link href={"/sign-up"}>*/}
-            {/*            <Text>Sign up</Text>*/}
-            {/*        </Link>*/}
-            {/*</View>*/}
+            <View>
+                <Text>Don't have an account?</Text>
+                    <Link href={"/sign-up"}>
+                        <Text>Sign up</Text>
+                    </Link>
+            </View>
 
 
         </View>

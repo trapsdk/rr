@@ -13,7 +13,6 @@ export default function Layout() {
                 name="home"
                 options={{
                     title: 'Home',
-                    headerShown: false,
 
                 }}
             />
@@ -21,8 +20,12 @@ export default function Layout() {
                 name="history"
                 options={{
                     title: 'History',
-                    headerShown: false,
-
+                }}
+            />
+            <Tabs.Screen
+                name="settings"
+                options={{
+                    title: 'Settings',
                 }}
             />
         </Tabs>

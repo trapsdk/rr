@@ -11,11 +11,8 @@ export default function Page() {
     const { user } = useUser();
     const { signOut } = useAuth();
 
-    const onSignOutPress = async () => {
-        try {
-            await signOut({ redirectUrl: "/" });
-        } catch (err: any) {}
-    };
+
+
     const [fontsLoaded] = useFonts({
         "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     })
@@ -24,13 +21,6 @@ export default function Page() {
 
         <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
             <SafeAreaView>
-
-                <SignedIn>
-                    <View>
-                        <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
-                        <Button onPress={onSignOutPress} title={"Sign Out!"}></Button>
-                    </View>
-                </SignedIn>
 
                 <SignedOut>
                         <View style = {styles.container}>

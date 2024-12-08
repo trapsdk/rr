@@ -2,6 +2,8 @@ import * as React from 'react'
 import {Text, TextInput, Button, View, StyleSheet} from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
+import {customStyles} from "@/constants/custom-styles";
+
 
 export default function Page() {
     const { isLoaded, signUp, setActive } = useSignUp()
@@ -50,7 +52,7 @@ export default function Page() {
             // and redirect the user
             if (signUpAttempt.status === 'complete') {
                 await setActive({ session: signUpAttempt.createdSessionId })
-                router.replace('/')
+                router.replace('/home')
             } else {
                 // If the status is not complete, check why. User may need to
                 // complete further steps.
@@ -72,7 +74,7 @@ export default function Page() {
 
     if (pendingVerification) {
         return (
-            <>
+            <View style={customStyles.bg}>
                 <Text>Verify your email</Text>
                 <TextInput
                     value={code}
@@ -81,12 +83,12 @@ export default function Page() {
                     onChangeText={(code) => setCode(code)}
                 />
                 <Button title="Verify" onPress={onVerifyPress} />
-            </>
+            </View>
         )
     }
 
     return (
-        <View>
+        <View style={customStyles.bg}>
             <>
                 <Text>Sign up</Text>
                 <TextInput style={styles.textInput}
