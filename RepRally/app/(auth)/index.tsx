@@ -1,7 +1,7 @@
 import {SignedIn, SignedOut, useAuth, useUser} from '@clerk/clerk-expo'
-import {Link, router} from 'expo-router'
+import {Link, router, SplashScreen} from 'expo-router'
 import {Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import React from "react";
+import React, {useEffect} from "react";
 import {useFonts} from "expo-font";
 import { SignOutButton } from '@clerk/clerk-react'
 import {redirect} from "next/navigation";
@@ -10,14 +10,26 @@ export default function Page() {
 
     const { user } = useUser();
     const { signOut } = useAuth();
-
-
-
     const [fontsLoaded] = useFonts({
         "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     })
+    const MyScene = () => {
+        useEffect(() => {
+            const loadScene = async () => {
+                try {
+                    // Simulate data loading
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                } finally {
+                    SplashScreen.hideAsync();
+                }
+            };
 
-    return (
+            loadScene();
+        }, [])
+    }
+
+
+        return (
 
         <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
             <SafeAreaView>
@@ -52,13 +64,11 @@ const styles = StyleSheet.create({
         bottom: -200,
     },
     buttontext:{
-        fontSize: 30,
-        fontFamily: "Poppins-Regular",
-        width: '100%',
-        color: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-
+        fontSize: 30,
+        fontFamily: "Poppins-Regular",
+        color: 'white',
     },
     container:{
         flex: 1,
