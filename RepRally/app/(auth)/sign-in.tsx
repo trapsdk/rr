@@ -44,41 +44,43 @@ export default function Page() {
 
     return (
         <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
-            <View style={{top: -150}}>
+
+            <View style={{top : -150}}>
+                <Text style={authStyles.titletext}>Sign In</Text>
+            </View>
+
+            <View style={{top : 0}}>
                 <TextInput style={authStyles.input}
+                           placeholderTextColor={"black"}
                            autoCapitalize="none"
                            value={emailAddress}
                            placeholder="Enter email"
                            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
                 />
-                <View/>
-                <View style={{top: 100}}>
+                </View>
+
+                <View style={{top: 50}}>
                 <TextInput style={authStyles.input}
+                           placeholderTextColor={"black"}
                            value={password}
                            placeholder="Enter password"
                            secureTextEntry={true}
                            onChangeText={(password) => setPassword(password)}
                 />
-
-                <TouchableOpacity style={authStyles.button} onPress={onSignInPress}>
-                    <Text style={authStyles.buttontext}>login</Text>
-                </TouchableOpacity>
                 </View>
 
-                <View style={{top: 175}}>
+                <View style={{bottom: -150}}>
+                    <TouchableOpacity style={authStyles.button} onPress={onSignInPress}>
+                        <Text style={authStyles.buttontext}>login</Text>
+                    </TouchableOpacity>
+                </View>
 
+                <View style={{top: -25}}>
                     <Text style={authStyles.annotatedtext}>
                         Don't have an account? Click <Text onPress={()=> router.replace('/sign-up')} style={{textDecorationLine: 'underline'}}>here</Text> to signup.
                     </Text>
-                    {/*<Link href={"/sign-up"}>*/}
-                    {/*    <Text>Sign up</Text>*/}
-                    {/*</Link>*/}
-
-
                 </View>
 
-
-            </View>
         </ImageBackground>
     )
 }

@@ -90,32 +90,44 @@ export default function Page() {
 
     return (
         <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
-        <View>
-            <>
+
+            <View style={{top : -165}} >
+                <Text style={authStyles.titletext}>Sign Up</Text>
+            </View>
+
+            <View style={{top : 0}}>
                 <TextInput style={authStyles.input}
+                           placeholderTextColor={"black"}
                     autoCapitalize="none"
                     value={emailAddress}
                     placeholder="Enter email"
-                    placeholderTextColor="#666666"
                     onChangeText={(email) => setEmailAddress(email)}
                 />
+                </View>
+
+            <View style={{top: 50}}>
                 <TextInput style={authStyles.input}
-                    value={password}
+                           placeholderTextColor={"black"}
+                           value={password}
                     placeholder="Enter password"
-                    placeholderTextColor="#666666"
                     secureTextEntry={true}
                     onChangeText={(password) => setPassword(password)}
                 />
-                <TouchableOpacity style={authStyles.button} onPress={onSignUpPress}>
-                    <Text style={authStyles.buttontext}>sign up</Text>
-                </TouchableOpacity>
+            </View>
 
-                 <Text style={authStyles.annotatedtext}>
-                        Have an account? Click <Text onPress={()=> router.replace('/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to sign in.
-                    </Text>
 
-            </>
-        </View>
+            <View style={{bottom: -150}}>
+                    <TouchableOpacity style={authStyles.button} onPress={onSignUpPress}>
+                        <Text style={authStyles.buttontext}>sign up</Text>
+                    </TouchableOpacity>
+            </View>
+
+                    <View style={{top: -25}}>
+                        <Text style={authStyles.annotatedtext}>
+                            Have an account? Click <Text onPress={()=> router.replace('/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to sign in.
+                        </Text>
+                    </View>
+
         </ImageBackground>
 
     )

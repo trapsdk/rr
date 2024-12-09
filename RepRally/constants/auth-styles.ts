@@ -11,32 +11,35 @@ export const authStyles = StyleSheet.create({
     input: {
         height: 40,
         borderBottomWidth: 2,
-            // backgroundColor: 'white',
-            // color: 'black',
+        width: 300,
             padding: 10,
             borderRadius: 10,
-
+            borderBottomColor: 'black',
             borderColor: "rgba(0, 0, 0, 0.11)"
     },
     button:{
         backgroundColor: 'black',
             borderRadius: 50,
-            paddingHorizontal: 30,
-            paddingVertical: 5,
+            paddingHorizontal: 100,
+            paddingVertical: 10,
         justifyContent: 'center',
         alignItems: 'center',
-            bottom: -175,
     },
     buttontext:{
-        fontSize: 30,
+        fontSize: 25,
             fontFamily: "Poppins-Regular",
             color: 'white',
             // justifyContent: 'center',
             // alignItems: 'center',
 
     },
+    titletext:{
+        fontFamily: "Poppins-Regular",
+        fontSize: 50,
+        fontWeight: "bold",
+    },
     annotatedtext: {
-        bottom: -200,
+        bottom: -215,
         fontWeight: "bold",
     },
 })

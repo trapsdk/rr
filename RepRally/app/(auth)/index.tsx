@@ -18,7 +18,7 @@ export default function Page() {
             const loadScene = async () => {
                 try {
                     // Simulate data loading
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    await new Promise(resolve => setTimeout(resolve, 5000));
                 } finally {
                     SplashScreen.hideAsync();
                 }
@@ -40,9 +40,11 @@ export default function Page() {
                         <View style={styles.containerTwo}>
                         </View>
                         <View style={styles.containerThree}>
+
                             <TouchableOpacity style={styles.button} onPress={()=>{router.replace('/(auth)/sign-up')}}>
                                 <Text style={styles.buttontext}>get started</Text>
                             </TouchableOpacity>
+
                             <Text style={styles.annotatedtext}>
                                 Already have an account? Click <Text onPress={()=> router.replace('./(auth)/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
                             </Text>
@@ -57,14 +59,14 @@ const styles = StyleSheet.create({
     button:{
         backgroundColor: 'black',
         borderRadius: 50,
-        paddingHorizontal: 80,
-        paddingVertical: 25,
+        paddingHorizontal: 50,
+        paddingVertical: 15,
         bottom: -175,
     },
     buttontext:{
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 25,
+        fontSize: 40,
         fontFamily: "Poppins-Regular",
         color: 'white',
     },
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     },
     containerThree:{
         flex: 3,
-        paddingHorizontal: 20,
+        // paddingHorizontal: 20,
         alignItems: 'center', // Center horizontally
     },
     welcometext: {
