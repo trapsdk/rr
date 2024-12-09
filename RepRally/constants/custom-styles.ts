@@ -24,7 +24,6 @@ export const customStyles = StyleSheet.create({
     buttontext:{
         fontSize: 30,
         fontFamily: "Poppins-Regular",
-        width: '100%',
         color: 'white',
         justifyContent: 'center',
         alignItems: 'center',

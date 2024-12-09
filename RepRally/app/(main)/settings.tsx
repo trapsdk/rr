@@ -6,6 +6,7 @@ import {useFonts} from "expo-font";
 import {redirect} from "next/navigation";
 import {customStyles} from "@/constants/custom-styles";
 import {SignOutButton} from "@/components/SignOutButton";
+import {mainStyles} from "@/constants/main-styles";
 
 
 
@@ -15,7 +16,7 @@ export default function Settings() {
     const { signOut } = useAuth();
 
     return(
-        <View style={customStyles.bg}>
+        <View style={mainStyles.bg}>
             <Text>Settings Screen</Text>
             <SignOutButton/>
         </View>

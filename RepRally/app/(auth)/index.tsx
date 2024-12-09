@@ -33,7 +33,6 @@ export default function Page() {
 
         <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
             <SafeAreaView>
-
                 <SignedOut>
                         <View style = {styles.container}>
                             <Image style={styles.image} source={require('../img/rrlogo.png')}/>
@@ -41,14 +40,13 @@ export default function Page() {
                         <View style={styles.containerTwo}>
                         </View>
                         <View style={styles.containerThree}>
-                            <TouchableOpacity style={styles.button} onPress={()=>{router.push('/(auth)/sign-up')}}>
+                            <TouchableOpacity style={styles.button} onPress={()=>{router.replace('/(auth)/sign-up')}}>
                                 <Text style={styles.buttontext}>get started</Text>
                             </TouchableOpacity>
                             <Text style={styles.annotatedtext}>
-                                Already have an account? Click <Text onPress={()=> router.push('./(auth)/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
+                                Already have an account? Click <Text onPress={()=> router.replace('./(auth)/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
                             </Text>
                         </View>
-
             </SignedOut>
             </SafeAreaView>
         </ImageBackground>
@@ -61,12 +59,12 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         paddingHorizontal: 80,
         paddingVertical: 25,
-        bottom: -200,
+        bottom: -175,
     },
     buttontext:{
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 30,
+        fontSize: 25,
         fontFamily: "Poppins-Regular",
         color: 'white',
     },
@@ -82,7 +80,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     annotatedtext: {
-        bottom: -225,
+        bottom: -200,
         fontWeight: "bold",
     },
     containerTwo:{

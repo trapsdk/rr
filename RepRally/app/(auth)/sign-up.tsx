@@ -1,8 +1,9 @@
 import * as React from 'react'
-import {Text, TextInput, Button, View, StyleSheet} from 'react-native'
+import {Text, TextInput, Button, View, StyleSheet, ImageBackground, TouchableOpacity} from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import {customStyles} from "@/constants/custom-styles";
+import {authStyles} from "@/constants/auth-styles";
 
 
 export default function Page() {
@@ -88,34 +89,34 @@ export default function Page() {
     }
 
     return (
-        <View style={customStyles.bg}>
+        <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
+        <View>
             <>
-                <Text>Sign up</Text>
-                <TextInput style={styles.textInput}
+                <TextInput style={authStyles.input}
                     autoCapitalize="none"
                     value={emailAddress}
                     placeholder="Enter email"
                     placeholderTextColor="#666666"
                     onChangeText={(email) => setEmailAddress(email)}
                 />
-                <TextInput style={styles.textInput}
+                <TextInput style={authStyles.input}
                     value={password}
                     placeholder="Enter password"
                     placeholderTextColor="#666666"
                     secureTextEntry={true}
                     onChangeText={(password) => setPassword(password)}
                 />
-                <Button title="Continue" onPress={onSignUpPress} />
-                <View style={{ flexDirection: 'row', gap: 4 }}>
-                    <Text>Have an account?</Text>
-                    <Link href={"/sign-in"}>
-                        <Text>Sign in</Text>
-                    </Link>
-                </View>
+                <TouchableOpacity style={authStyles.button} onPress={onSignUpPress}>
+                    <Text style={authStyles.buttontext}>sign up</Text>
+                </TouchableOpacity>
+
+                 <Text style={authStyles.annotatedtext}>
+                        Have an account? Click <Text onPress={()=> router.replace('/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to sign in.
+                    </Text>
+
             </>
         </View>
+        </ImageBackground>
+
     )
-
-
-
 }

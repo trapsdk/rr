@@ -4,10 +4,11 @@ import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity} from '
 import React from 'react'
 import {customStyles} from "@/constants/custom-styles";
 import {SignIn} from "@clerk/clerk-react";
+import {authStyles} from "@/constants/auth-styles";
 
 
 export default function Page() {
-    const { signIn, setActive, isLoaded } = useSignIn()
+    const {signIn, setActive, isLoaded} = useSignIn()
     const router = useRouter()
 
     const [emailAddress, setEmailAddress] = React.useState('')
@@ -27,7 +28,7 @@ export default function Page() {
             // If sign-in process is complete, set the created session as active
             // and redirect the user
             if (signInAttempt.status === 'complete') {
-                await setActive({ session: signInAttempt.createdSessionId })
+                await setActive({session: signInAttempt.createdSessionId})
                 router.replace('/home')
             } else {
                 // If the status isn't complete, check why. User might need to
@@ -42,35 +43,42 @@ export default function Page() {
     }, [isLoaded, emailAddress, password])
 
     return (
-        <ImageBackground source = {require('../img/bg.png')} style={ customStyles.bg }>
-        <View>
-            <TextInput style={customStyles.input}
-                autoCapitalize="none"
-                value={emailAddress}
-                placeholder="Enter email"
-                onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-            />
-            <TextInput style={customStyles.input}
-                value={password}
-                placeholder="Enter password"
-                secureTextEntry={true}
-                onChangeText={(password) => setPassword(password)}
-            />
-            <TouchableOpacity style={customStyles.button} onPress={onSignInPress}>
-                <Text style={customStyles.buttontext}>login</Text>
-            </TouchableOpacity>
+        <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
+            <View style={{top: -150}}>
+                <TextInput style={authStyles.input}
+                           autoCapitalize="none"
+                           value={emailAddress}
+                           placeholder="Enter email"
+                           onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+                />
+                <View/>
+                <View style={{top: 100}}>
+                <TextInput style={authStyles.input}
+                           value={password}
+                           placeholder="Enter password"
+                           secureTextEntry={true}
+                           onChangeText={(password) => setPassword(password)}
+                />
 
-            <View>
-                <Text>Don't have an account?</Text>
-                    <Link href={"/sign-up"}>
-                        <Text>Sign up</Text>
-                    </Link>
+                <TouchableOpacity style={authStyles.button} onPress={onSignInPress}>
+                    <Text style={authStyles.buttontext}>login</Text>
+                </TouchableOpacity>
+                </View>
+
+                <View style={{top: 175}}>
+
+                    <Text style={authStyles.annotatedtext}>
+                        Don't have an account? Click <Text onPress={()=> router.replace('/sign-up')} style={{textDecorationLine: 'underline'}}>here</Text> to signup.
+                    </Text>
+                    {/*<Link href={"/sign-up"}>*/}
+                    {/*    <Text>Sign up</Text>*/}
+                    {/*</Link>*/}
+
+
+                </View>
+
+
             </View>
-
-
-        </View>
-            </ImageBackground>
+        </ImageBackground>
     )
-
-
 }
