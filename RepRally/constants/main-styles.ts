@@ -6,6 +6,7 @@ export const mainStyles = StyleSheet.create({
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
+        backgroundColor: '#222831',
     },
     input: {
         height: 40,
@@ -37,5 +38,8 @@ export const mainStyles = StyleSheet.create({
     annotatedtext: {
         bottom: -200,
         fontWeight: "bold",
+    },
+    tabfooter:{
+      backgroundColor: 'transparent',
     },
 })

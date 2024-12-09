@@ -10,6 +10,7 @@ export default function Page() {
     const { isLoaded, signUp, setActive } = useSignUp()
     const router = useRouter()
 
+    const [username, setUsername] = React.useState('')
     const [emailAddress, setEmailAddress] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [pendingVerification, setPendingVerification] = React.useState(false)
@@ -22,6 +23,7 @@ export default function Page() {
         // Start sign-up process using email and password provided
         try {
             await signUp.create({
+                username,
                 emailAddress,
                 password,
             })
@@ -75,16 +77,34 @@ export default function Page() {
 
     if (pendingVerification) {
         return (
+            <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
             <View style={customStyles.bg}>
-                <Text>Verify your email</Text>
-                <TextInput
+
+                <View style={{top : -165}} >
+                    <Text style={authStyles.titletext}>Verify Email</Text>
+                </View>
+
+                <TextInput style={authStyles.input}
                     value={code}
                     placeholder="Enter your verification code"
                     placeholderTextColor="#666666"
                     onChangeText={(code) => setCode(code)}
                 />
-                <Button title="Verify" onPress={onVerifyPress} />
+
+                <View style={{bottom: -150}}>
+                    <TouchableOpacity style={authStyles.button} onPress={onVerifyPress}>
+                        <Text style={authStyles.buttontext}>Verify</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{top: -25}}>
+                    <Text style={authStyles.annotatedtext}>
+                        Click <Text onPress={()=> router.replace('/')} style={{textDecorationLine: 'underline'}}>here</Text> to go back.
+                    </Text>
+                </View>
+
             </View>
+            </ImageBackground>
         )
     }
 
@@ -98,12 +118,22 @@ export default function Page() {
             <View style={{top : 0}}>
                 <TextInput style={authStyles.input}
                            placeholderTextColor={"black"}
-                    autoCapitalize="none"
-                    value={emailAddress}
-                    placeholder="Enter email"
-                    onChangeText={(email) => setEmailAddress(email)}
+                           autoCapitalize="none"
+                           value={username}
+                           placeholder="Enter username"
+                           onChangeText={(username) => setUsername(username)}
                 />
-                </View>
+            </View>
+
+            <View style={{top : 25}}>
+                <TextInput style={authStyles.input}
+                           placeholderTextColor={"black"}
+                           autoCapitalize="none"
+                           value={emailAddress}
+                           placeholder="Enter email"
+                           onChangeText={(email) => setEmailAddress(email)}
+                />
+            </View>
 
             <View style={{top: 50}}>
                 <TextInput style={authStyles.input}
