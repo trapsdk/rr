@@ -1,21 +1,44 @@
-import * as React from 'react'
-import {Text, TextInput, Button, View, StyleSheet, TextProps, TextStyle} from 'react-native'
-import {SignedIn, SignedOut, useAuth, useUser} from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
+import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import { useQuery } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import ListItem from '@/components/ListItem';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Button from "@/components/Button";
+import { router } from 'expo-router';
+import NewWorkout from "@/app/(screens)/new-workout";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import {authStyles} from "@/constants/auth-styles";
+import newWorkout from "@/app/(screens)/new-workout";
+import {TextInput} from "react-native-gesture-handler";
 import {mainStyles} from "@/constants/main-styles";
-import { LinearTextGradient } from "react-native-text-gradient";
-import MaskedView from "@react-native-masked-view/masked-view";
-import {LinearGradient} from "expo-linear-gradient";
 
-export default function Home() {
-    const {user} = useUser();
+export default function HomeScreen() {
+    const workouts = useQuery(api.workouts.list)
 
-
-
-    return(
-
+    return (
         <View style={mainStyles.bg}>
-                    <Text style={mainStyles.buttontext}> Welcome {user?.username}! </Text>
+
         </View>
-    )
+    );
 }
+
+const styles = StyleSheet.create({
+    titleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    stepContainer: {
+        gap: 8,
+        marginBottom: 8,
+    },
+    reactLogo: {
+        height: 178,
+        width: 290,
+        bottom: 0,
+        left: 0,
+        position: 'absolute',
+    },
+});

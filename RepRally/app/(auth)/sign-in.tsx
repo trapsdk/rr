@@ -1,10 +1,10 @@
-import { useSignIn } from '@clerk/clerk-expo'
+import {isClerkAPIResponseError, useSignIn} from '@clerk/clerk-expo'
 import {Link, router, useRouter} from 'expo-router'
-import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity} from 'react-native'
+import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity, Alert} from 'react-native'
 import React from 'react'
 import {customStyles} from "@/constants/custom-styles";
-import {SignIn} from "@clerk/clerk-react";
 import {authStyles} from "@/constants/auth-styles";
+import { ClerkAPIError } from '@clerk/types'
 
 
 export default function Page() {
@@ -13,6 +13,8 @@ export default function Page() {
 
     const [emailAddress, setEmailAddress] = React.useState('')
     const [password, setPassword] = React.useState('')
+    let [errors, setErrors] = React.useState<ClerkAPIError[]>()
+
 
     // Handle the submission of the sign-in form
     const onSignInPress = React.useCallback(async () => {
@@ -34,12 +36,29 @@ export default function Page() {
                 // If the status isn't complete, check why. User might need to
                 // complete further steps.
                 console.error(JSON.stringify(signInAttempt, null, 2))
+
             }
-        } catch (err) {
-            // See https://clerk.com/docs/custom-flows/error-handling
-            // for more info on error handling
-            console.error(JSON.stringify(err, null, 2))
+        } catch (err: any) {
+
+            function isClerkAPIError(error: any): error is ClerkAPIError {
+                // @ts-ignore
+                return (
+                    error &&
+                    Array.isArray(error.errors) &&
+                    error.errors.every(err => typeof err.message === 'string')
+                );
+            }
+            console.error('Clerk Error:', err)
+            if (isClerkAPIError(err)) {
+                const errorMessage = err.errors[0].message;
+                Alert.alert('Sign-In Error', errorMessage);
+            } else {
+                Alert.alert('Error', 'An unexpected error occurred.');
+            }
         }
+
+
+
     }, [isLoaded, emailAddress, password])
 
     return (
@@ -54,7 +73,7 @@ export default function Page() {
                            placeholderTextColor={"black"}
                            autoCapitalize="none"
                            value={emailAddress}
-                           placeholder="Enter email"
+                           placeholder="Enter email or username"
                            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
                 />
                 </View>
@@ -72,6 +91,7 @@ export default function Page() {
                 <View style={{bottom: -150}}>
                     <TouchableOpacity style={authStyles.button} onPress={onSignInPress}>
                         <Text style={authStyles.buttontext}>login</Text>
+                        {/*{errorMessage ? <Text style={authStyles.errorText}>{errorMessage}</Text> : null}*/}
                     </TouchableOpacity>
                 </View>
 

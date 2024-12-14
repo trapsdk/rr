@@ -1,9 +1,10 @@
 import * as React from 'react'
-import {Text, TextInput, Button, View, StyleSheet, ImageBackground, TouchableOpacity} from 'react-native'
+import {Text, TextInput, Button, View, StyleSheet, ImageBackground, TouchableOpacity, Alert} from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import {customStyles} from "@/constants/custom-styles";
 import {authStyles} from "@/constants/auth-styles";
+import {ClerkAPIError} from "@clerk/types";
 
 
 export default function Page() {
@@ -34,10 +35,23 @@ export default function Page() {
             // Set 'pendingVerification' to true to display second form
             // and capture OTP code
             setPendingVerification(true)
-        } catch (err) {
-            // See https://clerk.com/docs/custom-flows/error-handling
-            // for more info on error handling
-            console.error(JSON.stringify(err, null, 2))
+        } catch (err: any) {
+
+            function isClerkAPIError(error: any): error is ClerkAPIError {
+                // @ts-ignore
+                return (
+                    error &&
+                    Array.isArray(error.errors) &&
+                    error.errors.every(err => typeof err.message === 'string')
+                );
+            }
+            console.error('Clerk Error:', err)
+            if (isClerkAPIError(err)) {
+                const errorMessage = err.errors[0].message;
+                Alert.alert('Sign-Up Error', errorMessage);
+            } else {
+                Alert.alert('Error', 'An unexpected error occurred.');
+            }
         }
     }
 

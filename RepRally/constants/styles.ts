@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     screen: {
         padding: 10,
         display: "flex",
-        gap: 8,
+        gap:10,
     },
     authScreen: {
         position: 'absolute',

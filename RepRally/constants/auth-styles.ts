@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 
 
 export const authStyles = StyleSheet.create({
+    errorText: {
+        color: 'red',
+        marginBottom: 10
+    },
     bg: {
         width: '100%',
             height: '100%',

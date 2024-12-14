@@ -17,7 +17,7 @@ export default function Settings() {
 
     return(
         <View style={mainStyles.bg}>
-            <Text>Settings Screen</Text>
+            <Text style={mainStyles.welcometext}>Settings</Text>
             <SignOutButton/>
         </View>
     )

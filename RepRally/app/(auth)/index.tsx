@@ -13,20 +13,6 @@ export default function Page() {
     const [fontsLoaded] = useFonts({
         "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     })
-    const MyScene = () => {
-        useEffect(() => {
-            const loadScene = async () => {
-                try {
-                    // Simulate data loading
-                    await new Promise(resolve => setTimeout(resolve, 5000));
-                } finally {
-                    SplashScreen.hideAsync();
-                }
-            };
-
-            loadScene();
-        }, [])
-    }
 
 
         return (
@@ -41,12 +27,12 @@ export default function Page() {
                         </View>
                         <View style={styles.containerThree}>
 
-                            <TouchableOpacity style={styles.button} onPress={()=>{router.replace('/(auth)/sign-up')}}>
+                            <TouchableOpacity style={styles.button} onPress={()=>{router.push('/(auth)/sign-up')}}>
                                 <Text style={styles.buttontext}>get started</Text>
                             </TouchableOpacity>
 
                             <Text style={styles.annotatedtext}>
-                                Already have an account? Click <Text onPress={()=> router.replace('./(auth)/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
+                                Already have an account? Click <Text onPress={()=> router.push('./(auth)/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to login.
                             </Text>
                         </View>
             </SignedOut>

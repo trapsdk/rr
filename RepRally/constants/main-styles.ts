@@ -2,6 +2,15 @@ import { StyleSheet } from "react-native";
 
 
 export const mainStyles = StyleSheet.create({
+    listItem: {
+        padding: 15,
+        marginVertical: 5,
+        backgroundColor: "black",
+        borderRadius: 10,
+    },
+    flatListContent: {
+        paddingBottom: 20, // Prevent cut-off on the last item
+    },
     bg: {
             height: '100%',
             justifyContent: 'center',
@@ -21,19 +30,16 @@ export const mainStyles = StyleSheet.create({
     button:{
         backgroundColor: 'black',
             borderRadius: 50,
-            paddingHorizontal: 80,
-            paddingVertical: 25,
+            paddingHorizontal: 50,
+            paddingVertical: 20,
         justifyContent: 'center',
         alignItems: 'center',
-            bottom: -175,
+            bottom: -155,
     },
     buttontext:{
         fontSize: 30,
             fontFamily: "Poppins-Regular",
             color: 'white',
-            // justifyContent: 'center',
-            // alignItems: 'center',
-
     },
     annotatedtext: {
         bottom: -200,
@@ -42,4 +48,9 @@ export const mainStyles = StyleSheet.create({
     tabfooter:{
       backgroundColor: 'transparent',
     },
+    welcometext:{
+        color: 'white',
+        fontSize: 25,
+        top: -250,
+    }
 })

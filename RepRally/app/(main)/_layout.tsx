@@ -3,6 +3,7 @@ import {Colors} from "@/constants/Colors";
 import {Tabs} from "expo-router";
 import React from "react";
 import {mainStyles} from "@/constants/main-styles";
+import {ConvexReactClient} from "convex/react";
 
 export default function Layout() {
     return (
@@ -28,9 +29,9 @@ export default function Layout() {
                 }}
             />
             <Tabs.Screen
-                name="history"
+                name="workout"
                 options={{
-                    title: 'History',
+                    title: 'Workouts',
                 }}
             />
             <Tabs.Screen
