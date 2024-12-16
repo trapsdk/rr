@@ -3,19 +3,20 @@ import { StyleSheet } from "react-native";
 
 export const mainStyles = StyleSheet.create({
     listItem: {
-        padding: 15,
+        padding: 30,
         marginVertical: 5,
-        backgroundColor: "black",
-        borderRadius: 10,
+        backgroundColor: "#424242",
+        borderRadius: 15,
     },
     flatListContent: {
         paddingBottom: 20, // Prevent cut-off on the last item
+
     },
     bg: {
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-        backgroundColor: '#2A3335',
+        backgroundColor: '#2e2e2e',
     },
     input: {
         height: 40,
@@ -27,7 +28,7 @@ export const mainStyles = StyleSheet.create({
             borderColor: "rgba(0, 0, 0, 0.11)"
     },
     button:{
-        backgroundColor: 'black',
+        backgroundColor: '#424242',
             borderRadius: 50,
             paddingHorizontal: 50,
             paddingVertical: 20,
@@ -38,7 +39,7 @@ export const mainStyles = StyleSheet.create({
     buttontext:{
         fontSize: 30,
             fontFamily: "Poppins-Regular",
-            color: 'white',
+            color: '#bce1ec',
     },
     annotatedtext: {
         bottom: -200,

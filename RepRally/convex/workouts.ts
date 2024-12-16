@@ -1,26 +1,26 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import { Id } from "./_generated/dataModel";
-import {auth} from "@clerk/nextjs/server";
-import { useUser } from '@clerk/clerk-react';
+import {useConvex} from "convex/react";
 
 
 export const list = query({
     args: {},
-    handler: async (ctx) => {
-        // This code is what parses the Clerk user ID from the token
-        const auth = await ctx.auth.getUserIdentity()
-        if(!auth) {
-            throw new Error("Not authorized")
-        }
 
-        // Return only workouts that match the userId
-        // that are NOT deleted
-        return await ctx.db.query("workouts")
-            .filter(q => q.and(
-                q.eq(q.field("userId"), auth?.subject),
-                q.neq(q.field("isDeleted"), true)
-            ))
+
+    handler: async (ctx) => {
+
+
+        const identity = await ctx.auth.getUserIdentity();
+        console.log("Identity:", identity);
+        if (identity === null) {
+            throw new Error("Not authenticated");
+        }
+        console.log("Subject:", identity.subject);
+        return await ctx.db
+            .query("workouts")
+            .filter(q =>
+                q.eq(q.field("userId"), identity.subject))
+            .order("asc")
             .collect();
     },
 });
@@ -40,7 +40,7 @@ export const insert = mutation({
         return await ctx.db.insert("workouts", {
             name: args.name,
             targetReps: args.targetReps,
-            userId: auth.name
+            userId: auth?.subject
         })
     }
 })

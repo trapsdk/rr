@@ -1,4 +1,4 @@
-import {SignedIn, SignedOut, useAuth, useUser} from '@clerk/clerk-expo'
+import {ClerkLoaded, SignedIn, SignedOut, useAuth, useUser} from '@clerk/clerk-expo'
 import {Button, Image, ImageBackground, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import React from "react";
 import {SignOutButton} from "@/components/SignOutButton";
@@ -12,9 +12,11 @@ export default function Settings() {
     const { signOut } = useAuth();
 
     return(
+        <ClerkLoaded>
         <View style={mainStyles.bg}>
             <Text style={mainStyles.welcometext}>Settings</Text>
             <SignOutButton/>
         </View>
+        </ClerkLoaded>
     )
 }

@@ -3,14 +3,17 @@ import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import React from 'react';
 import {mainStyles} from "@/constants/main-styles";
+import {ClerkLoaded} from "@clerk/clerk-expo";
 
 export default function HomeScreen() {
-    const workouts = useQuery(api.workouts.list)
 
     return (
-        <View style={mainStyles.bg}>
+        <ClerkLoaded>
+            <View style={mainStyles.bg}>
 
-        </View>
+            </View>
+        </ClerkLoaded>
+
     );
 }
 

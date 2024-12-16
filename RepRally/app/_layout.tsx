@@ -5,6 +5,8 @@ import {ConvexProviderWithClerk} from "convex/react-clerk";
 import {ConvexReactClient} from "convex/react";
 
 export default function RootLayout() {
+
+
     const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
     if (!publishableKey) {
@@ -17,10 +19,8 @@ export default function RootLayout() {
     return (
         <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
             <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-            <ClerkLoaded>
-                <Slot />
-            </ClerkLoaded>
-                </ConvexProviderWithClerk>
+                    <Slot />
+            </ConvexProviderWithClerk>
         </ClerkProvider>
     )
 }

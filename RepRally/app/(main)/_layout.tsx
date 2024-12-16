@@ -1,18 +1,22 @@
 import { Stack } from 'expo-router/stack'
 import {Colors} from "@/constants/Colors";
-import {Tabs} from "expo-router";
+import {Slot, Tabs} from "expo-router";
 import React from "react";
 import {mainStyles} from "@/constants/main-styles";
 import {ConvexReactClient} from "convex/react";
+import {ConvexProviderWithClerk} from "convex/react-clerk";
+import {ClerkLoaded, useAuth} from "@clerk/clerk-expo";
 
 export default function Layout() {
+
     return (
+
         <Tabs
             screenOptions={
             {
                 tabBarStyle: {
-                    backgroundColor: '#2A3335',
-                    borderColor: '#2A3335',
+                    backgroundColor: '#2e2e2e',
+                    borderColor: '#2e2e2e',
                 },
                 tabBarIconStyle: {
                     display: "none"
@@ -41,5 +45,6 @@ export default function Layout() {
                 }}
             />
         </Tabs>
+
     )
 }

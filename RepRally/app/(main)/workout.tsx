@@ -1,65 +1,71 @@
 import * as React from
         'react'
 import {Text, TextInput, Button, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native'
-import { useSignUp } from '@clerk/clerk-expo'
+import {ClerkLoaded, useAuth, useSignUp} from '@clerk/clerk-expo'
 import {Link, router, useRouter} from 'expo-router'
 import {mainStyles} from "@/constants/main-styles";
-import {useQuery} from "convex/react";
+import {Authenticated, useConvex, useConvexAuth, useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
-import {Image} from "react-native";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import {useContext} from "react";
 
 export default function Workout() {
 
-    const tasks = useQuery(api.workouts.list);
+    const {isLoading } = useConvexAuth();
     const workouts = useQuery(api.workouts.list)
 
     const addWorkout = (): void => {
-
         router.navigate("/(screens)/new-workout")
-
     };
+
+    if (isLoading) {
+        // If the authentication status is still loading, render a loading indicator
+        return <ActivityIndicator size={"large"}/>;
+    }
 
 
     return(
+        <Authenticated>
+        <ClerkLoaded>
+        <View style={mainStyles.bg}>
 
 
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#2A3335', dark: '#2A3335' }}
-            headerImage={
-                <Image source={require('../img/bg.png')}
-                       style={{height: "100%"}}
-                />
-            }
 
-        >
+                <View style={{flex: 1}}>
+                    <TouchableOpacity style={mainStyles.button} onPress={addWorkout}>
+                        <Text style={mainStyles.buttontext}>Add Workout</Text>
+                    </TouchableOpacity>
 
-        <View style={{top: -165}}>
-                <TouchableOpacity style={mainStyles.button} onPress={addWorkout}>
-                    <Text style={mainStyles.buttontext}>Add Workout</Text>
-                </TouchableOpacity>
-            </View>
+                    {workouts?.map(({ _id, text }) => <Text key={_id}>{text}</Text>)}
+                </View>
+
 
 
 
             <View style={{
-                flex: 1,
-                backgroundColor: 'teal',
+                flex: 2,
+                // backgroundColor: 'teal',
+                width: '90%',
             }}>
+                {!workouts ? <ActivityIndicator/> : null}
                 <FlatList
-                    scrollEnabled={false}
                     data={workouts}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
                         <View style={mainStyles.listItem}>
-                            <Text style={{color: 'white'}}>{item.name}</Text>
+                            <Text style={{
+                                color: '#bce1ec',
+                                fontSize: 25,
+                            }}
+                            >{item.name}</Text>
                         </View>
                     )}
                     contentContainerStyle={mainStyles.flatListContent}
                 />
             </View>
 
-        </ParallaxScrollView>
+        </View>
+        </ClerkLoaded>
+        </Authenticated>
 
     )
 }
