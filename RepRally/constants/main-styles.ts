@@ -15,13 +15,12 @@ export const mainStyles = StyleSheet.create({
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-        backgroundColor: '#222831',
+        backgroundColor: '#2A3335',
     },
     input: {
         height: 40,
             borderWidth: 2,
             backgroundColor: 'white',
-            // color: 'black',
             padding: 10,
             borderRadius: 10,
 

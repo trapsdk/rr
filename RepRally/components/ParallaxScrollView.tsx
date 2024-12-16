@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 32,
-    gap: 16,
-    overflow: 'hidden',
+    padding: 15,
+    gap: 15,
+    // overflow: 'hidden',
+    backgroundColor: '#2A3335',
   },
 });

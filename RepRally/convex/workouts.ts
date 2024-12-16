@@ -40,7 +40,7 @@ export const insert = mutation({
         return await ctx.db.insert("workouts", {
             name: args.name,
             targetReps: args.targetReps,
-            userId: useUser().user?.username
+            userId: auth.name
         })
     }
 })

@@ -6,10 +6,6 @@ import {Link, router, useRouter} from 'expo-router'
 import {mainStyles} from "@/constants/main-styles";
 import {useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
-import {ThemedView} from "@/components/ThemedView";
-import {Ionicons} from "@expo/vector-icons";
-import ListItem from "@/components/ListItem";
-import {convertDescriptorToString} from "jest-util";
 import {Image} from "react-native";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 
@@ -26,27 +22,30 @@ export default function Workout() {
 
 
     return(
+
+
         <ParallaxScrollView
-            headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+            headerBackgroundColor={{ light: '#2A3335', dark: '#2A3335' }}
             headerImage={
-                <Image source={require('../img/header.png')}
-                       style={mainStyles.bg}
+                <Image source={require('../img/bg.png')}
+                       style={{height: "100%"}}
                 />
+            }
 
-            }>
+        >
 
-        <View>
-            <View style={{top: -170}}>
-
+        <View style={{top: -165}}>
                 <TouchableOpacity style={mainStyles.button} onPress={addWorkout}>
-                    <Text style={mainStyles.buttontext}>New Workout</Text>
+                    <Text style={mainStyles.buttontext}>Add Workout</Text>
                 </TouchableOpacity>
-
             </View>
 
 
 
-            <View style={{flex: 1}}>
+            <View style={{
+                flex: 1,
+                backgroundColor: 'teal',
+            }}>
                 <FlatList
                     scrollEnabled={false}
                     data={workouts}
@@ -60,9 +59,7 @@ export default function Workout() {
                 />
             </View>
 
-
-
-        </View>
         </ParallaxScrollView>
+
     )
 }
