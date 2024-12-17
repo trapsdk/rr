@@ -41,6 +41,21 @@ export const mainStyles = StyleSheet.create({
             fontFamily: "Poppins-Regular",
             color: '#bce1ec',
     },
+    addWorkoutButton:{
+        backgroundColor: '#424242',
+        borderRadius: 50,
+        paddingHorizontal: 50,
+        paddingVertical: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: -155,
+    },
+    addWorkoutButtonText:{
+        fontSize: 30,
+        fontFamily: "Poppins-Regular",
+        color: '#bce1ec',
+    },
+
     annotatedtext: {
         bottom: -200,
         fontWeight: "bold",

@@ -28,21 +28,32 @@ export default function Workout() {
         <ClerkLoaded>
         <View style={mainStyles.bg}>
 
+            <View style={{top: 125}}>
+                <Text style={{
+                    color: '#c4e5ef',
+                    fontFamily: "Poppins-Regular",
+                    left: -100,
+                    fontSize: 30,
+                }}>Workouts</Text>
+            </View>
+
+            <View style={{
+                top: -75,
+                left: 100
 
 
-                <View style={{flex: 1}}>
-                    <TouchableOpacity style={mainStyles.button} onPress={addWorkout}>
-                        <Text style={mainStyles.buttontext}>Add Workout</Text>
+            }}>
+                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={addWorkout}>
+                        <Text style={mainStyles.addWorkoutButtonText}>+</Text>
                     </TouchableOpacity>
 
                     {workouts?.map(({ _id, text }) => <Text key={_id}>{text}</Text>)}
-                </View>
+            </View>
 
 
 
 
-            <View style={{
-                flex: 2,
+            <View style={{top: 0,
                 // backgroundColor: 'teal',
                 width: '90%',
             }}>
