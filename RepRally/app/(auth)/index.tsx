@@ -43,7 +43,7 @@ export default function Page() {
 
 const styles = StyleSheet.create({
     button:{
-        backgroundColor: 'black',
+        backgroundColor: '#2e2e2e',
         borderRadius: 50,
         paddingHorizontal: 50,
         paddingVertical: 15,
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     annotatedtext: {
         bottom: -200,
         fontWeight: "bold",
+        color: '#2e2e2e'
     },
     containerTwo:{
         flex: 2,
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     },
     welcometext: {
         top: -5,
-        color: 'black',
+        color: '#2e2e2e',
         fontWeight: 'bold',
         fontSize: 25,
     },

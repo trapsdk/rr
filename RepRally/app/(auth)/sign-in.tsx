@@ -70,7 +70,7 @@ export default function Page() {
 
             <View style={{top : 0}}>
                 <TextInput style={authStyles.input}
-                           placeholderTextColor={"black"}
+                           placeholderTextColor={"#2e2e2e"}
                            autoCapitalize="none"
                            value={emailAddress}
                            placeholder="Enter email or username"
@@ -80,7 +80,7 @@ export default function Page() {
 
                 <View style={{top: 50}}>
                 <TextInput style={authStyles.input}
-                           placeholderTextColor={"black"}
+                           placeholderTextColor={"#2e2e2e"}
                            value={password}
                            placeholder="Enter password"
                            secureTextEntry={true}

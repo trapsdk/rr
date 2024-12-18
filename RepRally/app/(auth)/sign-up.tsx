@@ -101,7 +101,7 @@ export default function Page() {
                 <TextInput style={authStyles.input}
                     value={code}
                     placeholder="Enter your verification code"
-                    placeholderTextColor="#666666"
+                    placeholderTextColor="#2e2e2e"
                     onChangeText={(code) => setCode(code)}
                 />
 
@@ -131,7 +131,7 @@ export default function Page() {
 
             <View style={{top : 0}}>
                 <TextInput style={authStyles.input}
-                           placeholderTextColor={"black"}
+                           placeholderTextColor={"#2e2e2e"}
                            autoCapitalize="none"
                            value={username}
                            placeholder="Enter username"
@@ -141,7 +141,7 @@ export default function Page() {
 
             <View style={{top : 25}}>
                 <TextInput style={authStyles.input}
-                           placeholderTextColor={"black"}
+                           placeholderTextColor={"#2e2e2e"}
                            autoCapitalize="none"
                            value={emailAddress}
                            placeholder="Enter email"
@@ -151,7 +151,7 @@ export default function Page() {
 
             <View style={{top: 50}}>
                 <TextInput style={authStyles.input}
-                           placeholderTextColor={"black"}
+                           placeholderTextColor={"#2e2e2e"}
                            value={password}
                     placeholder="Enter password"
                     secureTextEntry={true}

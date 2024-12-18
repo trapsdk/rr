@@ -18,11 +18,11 @@ export const authStyles = StyleSheet.create({
         width: 300,
             padding: 10,
             borderRadius: 10,
-            borderBottomColor: 'black',
+            borderBottomColor: '#2e2e2e',
             borderColor: "rgba(0, 0, 0, 0.11)"
     },
     button:{
-        backgroundColor: 'black',
+        backgroundColor: '#2e2e2e',
             borderRadius: 50,
             paddingHorizontal: 100,
             paddingVertical: 10,
@@ -41,9 +41,11 @@ export const authStyles = StyleSheet.create({
         fontFamily: "Poppins-Regular",
         fontSize: 50,
         fontWeight: "bold",
+        color: '#2e2e2e'
     },
     annotatedtext: {
         bottom: -215,
         fontWeight: "bold",
+        color: '#2e2e2e'
     },
 })

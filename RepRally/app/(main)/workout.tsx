@@ -34,13 +34,14 @@ export default function Workout() {
                     fontFamily: "Poppins-Regular",
                     left: -100,
                     fontSize: 30,
+                    // flex: 1,
                 }}>Workouts</Text>
             </View>
 
             <View style={{
                 top: -75,
-                left: 100
-
+                left: 100,
+                flex: 1,
 
             }}>
                     <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={addWorkout}>
@@ -53,7 +54,7 @@ export default function Workout() {
 
 
 
-            <View style={{top: 0,
+            <View style={{ flex: 3,
                 // backgroundColor: 'teal',
                 width: '90%',
             }}>
@@ -62,13 +63,17 @@ export default function Workout() {
                     data={workouts}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <View style={mainStyles.listItem}>
-                            <Text style={{
-                                color: '#bce1ec',
-                                fontSize: 25,
-                            }}
-                            >{item.name}</Text>
-                        </View>
+                        <TouchableOpacity>
+
+                            <View style={mainStyles.listItem}>
+                                <Text style={{
+                                    color: '#bce1ec',
+                                    fontSize: 25,
+                                }}
+                                >{item.name}</Text>
+                            </View>
+                        </TouchableOpacity>
+
                     )}
                     contentContainerStyle={mainStyles.flatListContent}
                 />

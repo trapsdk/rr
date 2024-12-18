@@ -19,12 +19,12 @@ export const mainStyles = StyleSheet.create({
         backgroundColor: '#2e2e2e',
     },
     input: {
-        height: 40,
+        height: 50,
             borderWidth: 2,
             backgroundColor: 'white',
-            padding: 10,
-            borderRadius: 10,
-
+            padding: 15,
+            borderRadius: 20,
+            width: 300,
             borderColor: "rgba(0, 0, 0, 0.11)"
     },
     button:{
