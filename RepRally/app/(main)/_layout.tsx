@@ -2,12 +2,13 @@ import { Stack } from 'expo-router/stack'
 import {Colors} from "@/constants/Colors";
 import {Slot, Tabs} from "expo-router";
 import React from "react";
-import {mainStyles} from "@/constants/main-styles";
-import {ConvexReactClient} from "convex/react";
-import {ConvexProviderWithClerk} from "convex/react-clerk";
-import {ClerkLoaded, useAuth} from "@clerk/clerk-expo";
+import {AntDesign} from "@expo/vector-icons";
+import {A} from "@clerk/clerk-react/dist/useAuth-D_CEhNaa";
+import {View} from "react-native";
+import { Image } from 'react-native';
 
 export default function Layout() {
+
 
     return (
 
@@ -18,30 +19,39 @@ export default function Layout() {
                     backgroundColor: '#2e2e2e',
                     borderColor: '#2e2e2e',
                 },
-                tabBarIconStyle: {
-                    display: "none"
-                },
+
                 headerShown: false,
                 tabBarShowLabel: true,
             }}
+
 
         >
             <Tabs.Screen
                 name="home"
                 options={{
-                    title: 'Home',
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({focused}) => (
+                        <AntDesign name={"appstore-o"} size={24} color={focused ? 'white' : '#939595' } />
+                    ),
                 }}
+
             />
             <Tabs.Screen
                 name="workout"
                 options={{
-                    title: 'Workouts',
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({focused}) => (
+                        <AntDesign name={"checkcircleo"} size={24} color={focused ? 'white' : '#939595'} />
+                    ),
                 }}
             />
             <Tabs.Screen
                 name="settings"
                 options={{
-                    title: 'Settings',
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({focused}) => (
+                        <AntDesign name={"setting"} size={24} color={focused ? 'white' : '#939595'} />
+                    ),
                 }}
             />
         </Tabs>
