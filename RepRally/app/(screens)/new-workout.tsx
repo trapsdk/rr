@@ -14,7 +14,7 @@ import {mainStyles} from "@/constants/main-styles";
 
 function NewWorkout() {
     const [name, setName] = React.useState('');
-    const [targetReps, setTargetReps] = React.useState('10')
+    const [workoutId, setWorkoutId] = React.useState('10');
     const[workouts] = React.useState('');
 
     const DATA = [
@@ -45,7 +45,7 @@ function NewWorkout() {
     async function onAddNewWorkoutPressed() {
         await addWorkout({
             name,
-            targetReps: Number(targetReps)
+            workoutId: Number(workoutId)
         })
         router.replace("/workout")
     }
@@ -58,9 +58,6 @@ function NewWorkout() {
             flex: 1
 
         }}>
-
-
-
 
                 <View style={{top: 120}}>
                     <Text style={{
@@ -112,17 +109,6 @@ function NewWorkout() {
                         )}
                         contentContainerStyle={mainStyles.flatListContent}
                     />
-                </View>
-
-                <View
-                    // style={{bottom: 325}}
-                >
-                    <Text style={mainStyles.buttontext}>Target reps</Text>
-                    <TextInput
-                        style={mainStyles.input}
-                        keyboardType='numeric'
-                        value={targetReps}
-                        onChangeText={setTargetReps} />
                 </View>
 
 

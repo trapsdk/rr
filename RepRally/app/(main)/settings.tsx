@@ -15,6 +15,8 @@ export default function Settings() {
         <ClerkLoaded>
         <View style={mainStyles.bg}>
             <Text style={mainStyles.welcometext}>Settings</Text>
+
+            <Text style={mainStyles.welcometext}>Current User: {useUser().user?.username}</Text>
             <SignOutButton/>
         </View>
         </ClerkLoaded>

@@ -11,12 +11,12 @@ import {useContext} from "react";
 export default function Workout() {
 
     const {isLoading } = useConvexAuth();
-    const workouts = useQuery(api.workouts.list)
+    const workouts = useQuery(api.workouts.list);
+    const [workoutId, setWorkoutId] = React.useState("");
 
     const addWorkout = (): void => {
         router.navigate("/(screens)/new-workout")
     };
-
     if (isLoading) {
         // If the authentication status is still loading, render a loading indicator
         return <ActivityIndicator size={"large"}/>;

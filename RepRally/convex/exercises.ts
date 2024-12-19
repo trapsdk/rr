@@ -17,7 +17,7 @@ export const list = query({
         }
         console.log("Subject:", identity.subject);
         return await ctx.db
-            .query("workouts")
+            .query("exercises")
             .filter(q =>
                 q.eq(q.field("userId"), identity.subject))
             .order("asc")
@@ -28,7 +28,7 @@ export const list = query({
 export const insert = mutation({
     args: {
         name: v.string(),
-        workoutId: v.number()
+        targetReps: v.number()
     },
     handler: async (ctx, args) => {
         const auth = await ctx.auth.getUserIdentity()
@@ -37,10 +37,10 @@ export const insert = mutation({
         }
 
         // Use the user's ID to insert the workout into the Convex database
-        return await ctx.db.insert("workouts", {
+        return await ctx.db.insert("exercises", {
             name: args.name,
-            workoutId: args.workoutId,
-            userId: auth?.subject
+            targetReps: args.targetReps,
+            userId: auth?.subject,
         })
     }
 })
