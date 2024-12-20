@@ -17,10 +17,6 @@ export default function Workout() {
     const addWorkout = (): void => {
         router.navigate("/(screens)/new-workout")
     };
-    if (isLoading) {
-        // If the authentication status is still loading, render a loading indicator
-        return <ActivityIndicator size={"large"}/>;
-    }
 
 
     return(
@@ -63,11 +59,11 @@ export default function Workout() {
                     data={workouts}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <TouchableOpacity>
 
+                        <TouchableOpacity>
                             <View style={mainStyles.listItem}>
                                 <Text style={{
-                                    color: '#bce1ec',
+                                    color: '#c4e5ef',
                                     fontSize: 25,
                                 }}
                                 >{item.name}</Text>

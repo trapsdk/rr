@@ -5,7 +5,7 @@ export const mainStyles = StyleSheet.create({
     listItem: {
         padding: 30,
         marginVertical: 5,
-        backgroundColor: "#424242",
+        backgroundColor: "#202324",
         borderRadius: 15,
     },
     flatListContent: {
@@ -16,7 +16,7 @@ export const mainStyles = StyleSheet.create({
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-        backgroundColor: '#2e2e2e',
+        backgroundColor: 'black',
     },
     input: {
         height: 50,
@@ -28,7 +28,7 @@ export const mainStyles = StyleSheet.create({
             borderColor: "rgba(0, 0, 0, 0.11)"
     },
     button:{
-        backgroundColor: '#424242',
+        backgroundColor: '#202324',
             borderRadius: 50,
             paddingHorizontal: 50,
             paddingVertical: 20,
@@ -39,10 +39,10 @@ export const mainStyles = StyleSheet.create({
     buttontext:{
         fontSize: 30,
             fontFamily: "Poppins-Regular",
-            color: '#bce1ec',
+            color: '#c4e5ef',
     },
     addWorkoutButton:{
-        backgroundColor: '#424242',
+        backgroundColor: '#202324',
         borderRadius: 50,
         paddingHorizontal: 50,
         paddingVertical: 0,
@@ -53,7 +53,7 @@ export const mainStyles = StyleSheet.create({
     addWorkoutButtonText:{
         fontSize: 30,
         fontFamily: "Poppins-Regular",
-        color: '#bce1ec',
+        color: '#c4e5ef',
     },
 
     annotatedtext: {

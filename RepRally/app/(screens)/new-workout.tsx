@@ -11,6 +11,8 @@ import Button from '@/components/Button';
 import { styles } from '@/constants/styles'
 import {GestureHandlerRootView, TextInput} from 'react-native-gesture-handler';
 import {mainStyles} from "@/constants/main-styles";
+import {auth} from "@clerk/nextjs/server";
+import {authStyles} from "@/constants/auth-styles";
 
 function NewWorkout() {
     const [name, setName] = React.useState('');
@@ -32,11 +34,15 @@ function NewWorkout() {
         },
         {
             id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            title: 'Shoulder Fly',
+            title: 'Bench Press',
         },
         {
             id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            title: 'Squats',
+            title: 'Bench Press',
+        },
+        {
+            id: '58694a0f-3da1-471f-bd96-145571e29d72',
+            title: 'Bench Press',
         },
     ];
     // useMutation references the new `insert` mutation in workouts.ts
@@ -51,80 +57,85 @@ function NewWorkout() {
     }
 
     return (
-        <GestureHandlerRootView style={{
-            alignItems: 'center',
-            backgroundColor: '#2e2e2e',
-            justifyContent: 'center',
-            flex: 1
+        <GestureHandlerRootView>
+            <View style={mainStyles.bg}>
 
-        }}>
 
-                <View style={{top: 120}}>
+                <View style={{flex: 1}}>
                     <Text style={{
                         color: '#c4e5ef',
                         fontFamily: "Poppins-Regular",
                         left: -75,
+                        top: 150,
                         fontSize: 30,
                     }}>New Workout</Text>
                 </View>
 
                 <View style={{
-                    top: -75,
+                    top: -195,
                     left: 100,
-                    flex: 1,
+                    // flex: 1,
 
                 }}>
-                    <TouchableOpacity style={mainStyles.addWorkoutButton} >
+                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={onAddNewWorkoutPressed} >
                         <Text style={mainStyles.addWorkoutButtonText}>+</Text>
                     </TouchableOpacity>
 
                 </View>
 
-            <View style={{flex: 3}}>
-                <View style={{top: -50}}>
-                    <Text style={mainStyles.buttontext}>Workout Title</Text>
-                    <TextInput
-                        style={mainStyles.input}
-                        value={name}
-                        onChangeText={setName} />
-
-                </View>
-
 
                 <View style={{top: -25}}>
-                    <FlatList
-                        data={DATA}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity>
-                                <View style={mainStyles.listItem}>
-                                    <Text style={{
-                                        color: '#bce1ec',
-                                        fontSize: 25,
-                                    }}
-                                    >{item.title}</Text>
-                                </View>
-                            </TouchableOpacity>
-
-                        )}
-                        contentContainerStyle={mainStyles.flatListContent}
-                    />
+                    <TextInput
+                        style={{
+                            height: 40,
+                            borderBottomWidth: 2,
+                            width: 300,
+                            padding: 10,
+                            borderRadius: 10,
+                            borderBottomColor: 'white',
+                            borderColor: "rgba(0, 0, 0, 0.11)"
+                        }}
+                        placeholder="Workout Title"
+                        placeholderTextColor={"#c4e5ef"}
+                        value={name}
+                        onChangeText={setName} />
                 </View>
 
+                    <View style={{flex: 3}}>
+                        <FlatList
+                            data={DATA}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity>
+                                    <View style={mainStyles.listItem}>
+                                        <Text style={{
+                                            color: '#bce1ec',
+                                            fontSize: 25,
+                                        }}
+                                        >{item.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
 
-                <View style={{bottom: 450}}>
-                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={onAddNewWorkoutPressed}>
-                        <Text style={mainStyles.addWorkoutButtonText}>save</Text>
-                    </TouchableOpacity>
-                </View>
+                            )}
+                            ListHeaderComponent={
+
+                                    <TouchableOpacity style={{
+                                        backgroundColor: '#202324',
+                                        borderRadius: 50,
+                                        paddingHorizontal: 50,
+                                        paddingVertical:10,
+                                    }} >
+                                        <Text style={mainStyles.addWorkoutButtonText}>add exercise</Text>
+                                    </TouchableOpacity>
+                            }
+                            contentContainerStyle={mainStyles.flatListContent}
+                        />
+                    </View>
+
 
 
             </View>
-
-
-
-
-            </GestureHandlerRootView>
+        </GestureHandlerRootView>
     )
 }
 

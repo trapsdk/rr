@@ -16,8 +16,8 @@ export default function Layout() {
             screenOptions={
             {
                 tabBarStyle: {
-                    backgroundColor: '#2e2e2e',
-                    borderColor: '#2e2e2e',
+                    backgroundColor: 'black',
+                    borderColor: '#black',
                 },
 
                 headerShown: false,

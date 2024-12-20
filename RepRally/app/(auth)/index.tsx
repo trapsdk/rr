@@ -43,7 +43,7 @@ export default function Page() {
 
 const styles = StyleSheet.create({
     button:{
-        backgroundColor: '#2e2e2e',
+        backgroundColor: 'black',
         borderRadius: 50,
         paddingHorizontal: 50,
         paddingVertical: 15,

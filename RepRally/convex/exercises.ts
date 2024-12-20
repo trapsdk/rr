@@ -27,7 +27,7 @@ export const list = query({
 
 export const insert = mutation({
     args: {
-        name: v.string(),
+        exercise: v.string(),
         targetReps: v.number()
     },
     handler: async (ctx, args) => {
@@ -38,7 +38,7 @@ export const insert = mutation({
 
         // Use the user's ID to insert the workout into the Convex database
         return await ctx.db.insert("exercises", {
-            name: args.name,
+            exercise: args.exercise,
             targetReps: args.targetReps,
             userId: auth?.subject,
         })

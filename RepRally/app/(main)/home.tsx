@@ -30,14 +30,14 @@ export default function HomeScreen() {
                 // scrollEnabled={false}
                 showScrollIndicator={true}
                 style={{
-                    backgroundColor: '#2e2e2e',
+                    // backgroundColor: 'black',
                     width: '100%',
                     height: '100%',
 
                 }}
                 theme={{
-                    calendarBackground: '#2e2e2e',
-                    backgroundColor: '#2e2e2e',
+                    calendarBackground: 'black',
+                    backgroundColor: 'black',
                     textSectionTitleColor: 'white',
                     monthTextColor: 'white',
                     textDayFontFamily: "Poppins-Regular",
