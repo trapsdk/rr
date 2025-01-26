@@ -15,7 +15,7 @@ export default function HomeScreen() {
 
             <View style={{top: 100}}>
                 <Text style={{
-                    color: '#c4e5ef',
+                    color: 'black',
                     fontFamily: "Poppins-Regular",
                     left: -100,
                     fontSize: 30,
@@ -36,16 +36,16 @@ export default function HomeScreen() {
 
                 }}
                 theme={{
-                    calendarBackground: 'black',
-                    backgroundColor: 'black',
-                    textSectionTitleColor: 'white',
-                    monthTextColor: 'white',
+                    calendarBackground: '#eff7f7',
+                    backgroundColor: 'beige',
+                    textSectionTitleColor: '#5d6f75',
+                    monthTextColor: 'black',
                     textDayFontFamily: "Poppins-Regular",
                     textMonthFontFamily: "Poppins-Regular",
                     textDayHeaderFontFamily: "Poppins-Regular",
-                    todayTextColor: '#3f3f3f',
+                    todayTextColor: 'white',
                     dayTextColor: '#5d6f75',
-                    todayBackgroundColor: '#b3ddea'
+                    todayBackgroundColor: 'black',
                 }}
 
 

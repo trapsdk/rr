@@ -1,10 +1,21 @@
 import * as React from 'react'
-import {Text, TextInput, Button, View, StyleSheet, ImageBackground, TouchableOpacity, Alert} from 'react-native'
+import {
+    Text,
+    TextInput,
+    Button,
+    View,
+    StyleSheet,
+    ImageBackground,
+    TouchableOpacity,
+    Alert,
+    SafeAreaView
+} from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import {customStyles} from "@/constants/custom-styles";
 import {authStyles} from "@/constants/auth-styles";
 import {ClerkAPIError} from "@clerk/types";
+import {mainStyles} from "@/constants/main-styles";
 
 
 export default function Page() {
@@ -91,7 +102,7 @@ export default function Page() {
 
     if (pendingVerification) {
         return (
-            <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
+            <SafeAreaView style={mainStyles.bg}>
             <View style={customStyles.bg}>
 
                 <View style={{top : -165}} >
@@ -118,14 +129,14 @@ export default function Page() {
                 </View>
 
             </View>
-            </ImageBackground>
+            </SafeAreaView>
         )
     }
 
     return (
-        <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
+        <SafeAreaView style={mainStyles.bg}>
 
-            <View style={{top : -165}} >
+            <View style={{top : -125}} >
                 <Text style={authStyles.titletext}>Sign Up</Text>
             </View>
 
@@ -171,8 +182,7 @@ export default function Page() {
                             Have an account? Click <Text onPress={()=> router.replace('/sign-in')} style={{textDecorationLine: 'underline'}}>here</Text> to sign in.
                         </Text>
                     </View>
-
-        </ImageBackground>
+        </SafeAreaView>
 
     )
 }

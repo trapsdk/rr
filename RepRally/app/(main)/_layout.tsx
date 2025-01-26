@@ -6,6 +6,7 @@ import {AntDesign} from "@expo/vector-icons";
 import {A} from "@clerk/clerk-react/dist/useAuth-D_CEhNaa";
 import {View} from "react-native";
 import { Image } from 'react-native';
+import {StatusBar} from "expo-status-bar";
 
 export default function Layout() {
 
@@ -13,25 +14,25 @@ export default function Layout() {
     return (
 
         <Tabs
+
             screenOptions={
             {
                 tabBarStyle: {
-                    backgroundColor: 'black',
-                    borderColor: '#black',
+                    backgroundColor: '#eff7f7',
+                    borderColor: '#eff7f7',
                 },
-
                 headerShown: false,
                 tabBarShowLabel: true,
             }}
 
-
         >
+
             <Tabs.Screen
                 name="home"
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({focused}) => (
-                        <AntDesign name={"appstore-o"} size={24} color={focused ? 'white' : '#939595' } />
+                        <AntDesign name={"appstore-o"} size={24} color={focused ? 'black' : '#939595' } />
                     ),
                 }}
 
@@ -41,7 +42,7 @@ export default function Layout() {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({focused}) => (
-                        <AntDesign name={"checkcircleo"} size={24} color={focused ? 'white' : '#939595'} />
+                        <AntDesign name={"checkcircleo"} size={24} color={focused ? 'black' : '#939595'} />
                     ),
                 }}
             />
@@ -50,7 +51,7 @@ export default function Layout() {
                 options={{
                     tabBarShowLabel: false,
                     tabBarIcon: ({focused}) => (
-                        <AntDesign name={"setting"} size={24} color={focused ? 'white' : '#939595'} />
+                        <AntDesign name={"setting"} size={24} color={focused ? 'black' : '#939595'} />
                     ),
                 }}
             />

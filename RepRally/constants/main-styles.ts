@@ -16,7 +16,7 @@ export const mainStyles = StyleSheet.create({
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: '#eff7f7',
     },
     input: {
         height: 50,
@@ -42,7 +42,7 @@ export const mainStyles = StyleSheet.create({
             color: '#c4e5ef',
     },
     addWorkoutButton:{
-        backgroundColor: '#202324',
+        backgroundColor: 'black',
         borderRadius: 50,
         paddingHorizontal: 50,
         paddingVertical: 0,
@@ -53,7 +53,7 @@ export const mainStyles = StyleSheet.create({
     addWorkoutButtonText:{
         fontSize: 30,
         fontFamily: "Poppins-Regular",
-        color: '#c4e5ef',
+        color: 'white',
     },
 
     annotatedtext: {
@@ -64,7 +64,7 @@ export const mainStyles = StyleSheet.create({
       backgroundColor: 'transparent',
     },
     welcometext:{
-        color: 'white',
+        color: 'black',
         fontSize: 25,
         top: -250,
     }

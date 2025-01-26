@@ -8,17 +8,19 @@ import {redirect} from "next/navigation";
 
 export default function Page() {
 
+    // assigning variables
     const { user } = useUser();
     const { signOut } = useAuth();
     const [fontsLoaded] = useFonts({
         "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
     })
-
-
         return (
 
-        <ImageBackground source = {require('../img/bg.png')} style={styles.bg}>
-            <SafeAreaView>
+            // 1. load imagebackground
+            // 2. load SafeAreaView for iOS devices
+            // 3. SignedOut component shows a certain view is user is signed out.
+            // 4. Nested View components - load RepRally logo, get started button, annotated text
+            <SafeAreaView style={styles.bg}>
                 <SignedOut>
                         <View style = {styles.container}>
                             <Image style={styles.image} source={require('../img/rrlogo.png')}/>
@@ -37,10 +39,10 @@ export default function Page() {
                         </View>
             </SignedOut>
             </SafeAreaView>
-        </ImageBackground>
     );
 }
 
+// our style sheet for welcome screen
 const styles = StyleSheet.create({
     button:{
         backgroundColor: 'black',
@@ -91,7 +93,8 @@ const styles = StyleSheet.create({
     bg:{
         width: '100%',
         height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#eff7f7',
+        // justifyContent: 'center',
+        // alignItems: 'center',
     },
 });

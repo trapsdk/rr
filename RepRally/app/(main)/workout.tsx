@@ -24,18 +24,17 @@ export default function Workout() {
         <ClerkLoaded>
         <View style={mainStyles.bg}>
 
-            <View style={{top: 125}}>
+            <View style={{top: 85}}>
                 <Text style={{
-                    color: '#c4e5ef',
+                    color: 'black',
                     fontFamily: "Poppins-Regular",
                     left: -100,
                     fontSize: 30,
-                    // flex: 1,
                 }}>Workouts</Text>
             </View>
 
             <View style={{
-                top: -75,
+                top: -115,
                 left: 100,
                 flex: 1,
 

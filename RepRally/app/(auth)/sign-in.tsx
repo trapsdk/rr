@@ -1,10 +1,11 @@
 import {isClerkAPIResponseError, useSignIn} from '@clerk/clerk-expo'
 import {Link, router, useRouter} from 'expo-router'
-import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity, Alert} from 'react-native'
+import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity, Alert, SafeAreaView} from 'react-native'
 import React from 'react'
 import {customStyles} from "@/constants/custom-styles";
 import {authStyles} from "@/constants/auth-styles";
 import { ClerkAPIError } from '@clerk/types'
+import {mainStyles} from "@/constants/main-styles";
 
 
 export default function Page() {
@@ -62,7 +63,11 @@ export default function Page() {
     }, [isLoaded, emailAddress, password])
 
     return (
-        <ImageBackground source={require('../img/bg.png')} style={customStyles.bg}>
+
+
+        <SafeAreaView style={mainStyles.bg}>
+
+
 
             <View style={{top : -150}}>
                 <Text style={authStyles.titletext}>Sign In</Text>
@@ -101,6 +106,7 @@ export default function Page() {
                     </Text>
                 </View>
 
-        </ImageBackground>
+        </SafeAreaView>
+
     )
 }
