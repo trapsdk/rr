@@ -6,9 +6,7 @@ import {useConvex} from "convex/react";
 export const list = query({
     args: {},
 
-
     handler: async (ctx) => {
-
 
         const identity = await ctx.auth.getUserIdentity();
         console.log("Identity:", identity);
@@ -25,10 +23,11 @@ export const list = query({
     },
 });
 
-export const insert = mutation({
+
+
+export const createWorkout = mutation({
     args: {
         name: v.string(),
-        workoutId: v.number()
     },
     handler: async (ctx, args) => {
         const auth = await ctx.auth.getUserIdentity()
@@ -39,7 +38,6 @@ export const insert = mutation({
         // Use the user's ID to insert the workout into the Convex database
         return await ctx.db.insert("workouts", {
             name: args.name,
-            workoutId: args.workoutId,
             userId: auth?.subject
         })
     }

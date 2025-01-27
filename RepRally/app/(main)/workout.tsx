@@ -1,18 +1,31 @@
 import * as React from
         'react'
-import {Text, TextInput, Button, View, StyleSheet, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native'
+import {
+    Text,
+    TextInput,
+    Button,
+    View,
+    StyleSheet,
+    ActivityIndicator,
+    FlatList,
+    TouchableOpacity,
+    Modal
+} from 'react-native'
 import {ClerkLoaded, useAuth, useSignUp} from '@clerk/clerk-expo'
 import {Link, router, useRouter} from 'expo-router'
 import {mainStyles} from "@/constants/main-styles";
 import {Authenticated, useConvex, useConvexAuth, useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
 import {useContext} from "react";
+import {authStyles} from "@/constants/auth-styles";
 
 export default function Workout() {
 
-    const {isLoading } = useConvexAuth();
+    const {isLoading} = useConvexAuth();
     const workouts = useQuery(api.workouts.list);
     const [workoutId, setWorkoutId] = React.useState("");
+    const [isModalVisible, setModalVisible] = React.useState(false);
+    const [workoutName, setWorkoutName] = React.useState("");
 
     const addWorkout = (): void => {
         router.navigate("/(screens)/new-workout")
@@ -39,12 +52,46 @@ export default function Workout() {
                 flex: 1,
 
             }}>
-                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={addWorkout}>
+                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=>setModalVisible(true)}>
                         <Text style={mainStyles.addWorkoutButtonText}>+</Text>
                     </TouchableOpacity>
 
-                    {workouts?.map(({ _id, text }) => <Text key={_id}>{text}</Text>)}
+                    {workouts?.map(({ _id, name }) => <Text key={_id}>{name}</Text>)}
             </View>
+
+            <Modal
+                visible={isModalVisible}
+                animationType={"slide"}
+                presentationStyle={"pageSheet"}
+            >
+                <View style={mainStyles.bg}>
+
+                    <View style={{
+                        top: -100,
+                    }}>
+                        <TextInput style={authStyles.input}
+                                   placeholderTextColor={"#2e2e2e"}
+                                   autoCapitalize="characters"
+                                   value={workoutName}
+                                   placeholder="Enter Workout Title"
+                                   onChangeText={(workoutName) => setWorkoutName(workoutName)}
+                        />
+
+                    </View>
+
+
+
+
+                    <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=>setModalVisible(false)}>
+                        <Text style={mainStyles.addWorkoutButtonText}>Save Workout</Text>
+                    </TouchableOpacity>
+
+
+
+                </View>
+
+        </Modal>
+
 
 
 

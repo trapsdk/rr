@@ -25,22 +25,26 @@ export const list = query({
     },
 });
 
-export const insert = mutation({
+export const addExercise = mutation({
     args: {
         exercise: v.string(),
-        targetReps: v.number()
+        targetReps: v.number(),
+        weight: v.number(),
+        workoutId: v.any(),
     },
     handler: async (ctx, args) => {
         const auth = await ctx.auth.getUserIdentity()
         if(!auth) {
             throw new Error("Not authorized")
         }
-
-        // Use the user's ID to insert the workout into the Convex database
         return await ctx.db.insert("exercises", {
             exercise: args.exercise,
             targetReps: args.targetReps,
+            weight: args.weight,
             userId: auth?.subject,
+            workoutId: args.workoutId
         })
+
     }
+
 })
