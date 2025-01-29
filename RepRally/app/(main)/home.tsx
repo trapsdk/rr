@@ -13,7 +13,7 @@ export default function HomeScreen() {
 
         <View style={mainStyles.bg}>
 
-            <View style={{top: 100}}>
+            <View style={{flex: 1, maxHeight: '20%', top: 85}}>
                 <Text style={{
                     color: 'black',
                     fontFamily: "Poppins-Regular",
@@ -22,17 +22,17 @@ export default function HomeScreen() {
                 }}>Calendar</Text>
             </View>
 
-        <View style={{top: 100}}>
+        <View style={{flex:2, maxHeight: '75%'}}>
 
             <CalendarList
-                pastScrollRange={24}
-                futureScrollRange={24}
+                pastScrollRange={12}
+                futureScrollRange={12}
                 // scrollEnabled={false}
                 showScrollIndicator={true}
                 style={{
                     // backgroundColor: 'black',
-                    width: '100%',
-                    height: '100%',
+                    // width: '100%',
+                    // height: '',
 
                 }}
                 theme={{
@@ -56,6 +56,7 @@ export default function HomeScreen() {
 
             />
         </View>
+
 
         </View>
 

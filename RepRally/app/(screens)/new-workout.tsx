@@ -87,37 +87,37 @@ function NewWorkout() {
                                 onChangeText={setName} />
                         </View>
 
-                        <View style={{flex: 3}}>
-                            <FlatList
-                                data={DATA}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity>
-                                        <View style={mainStyles.listItem}>
-                                            <Text style={{
-                                                color: '#bce1ec',
-                                                fontSize: 25,
-                                            }}
-                                            >{item.name}</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                        {/*<View style={{flex: 3}}>*/}
+                        {/*    <FlatList*/}
+                        {/*        data={DATA}*/}
+                        {/*        keyExtractor={(item, index) => index.toString()}*/}
+                        {/*        renderItem={({ item }) => (*/}
+                        {/*            <TouchableOpacity>*/}
+                        {/*                <View style={mainStyles.listItem}>*/}
+                        {/*                    <Text style={{*/}
+                        {/*                        color: '#bce1ec',*/}
+                        {/*                        fontSize: 25,*/}
+                        {/*                    }}*/}
+                        {/*                    >{item.name}</Text>*/}
+                        {/*                </View>*/}
+                        {/*            </TouchableOpacity>*/}
 
-                                )}
-                                ListHeaderComponent={
+                        {/*        )}*/}
+                        {/*        ListHeaderComponent={*/}
 
-                                    <TouchableOpacity style={{
-                                        backgroundColor: '#202324',
-                                        borderRadius: 50,
-                                        paddingHorizontal: 50,
-                                        paddingVertical:10,
-                                    }} onPress={()=>{}}
-                                    >
-                                        <Text style={mainStyles.addWorkoutButtonText}>add exercise</Text>
-                                    </TouchableOpacity>
-                                }
-                                contentContainerStyle={mainStyles.flatListContent}
-                            />
-                        </View>
+                        {/*            <TouchableOpacity style={{*/}
+                        {/*                backgroundColor: '#202324',*/}
+                        {/*                borderRadius: 50,*/}
+                        {/*                paddingHorizontal: 50,*/}
+                        {/*                paddingVertical:10,*/}
+                        {/*            }} onPress={()=>{}}*/}
+                        {/*            >*/}
+                        {/*                <Text style={mainStyles.addWorkoutButtonText}>add exercise</Text>*/}
+                        {/*            </TouchableOpacity>*/}
+                        {/*        }*/}
+                        {/*        contentContainerStyle={mainStyles.flatListContent}*/}
+                        {/*    />*/}
+                        {/*</View>*/}
 
 
 

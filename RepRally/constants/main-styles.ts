@@ -4,9 +4,10 @@ import { StyleSheet } from "react-native";
 export const mainStyles = StyleSheet.create({
     listItem: {
         padding: 30,
-        marginVertical: 5,
+        marginVertical: 7,
         backgroundColor: "#202324",
-        borderRadius: 15,
+        borderRadius: 25,
+        alignItems: "center",
     },
     flatListContent: {
         paddingBottom: 20, // Prevent cut-off on the last item
@@ -42,7 +43,7 @@ export const mainStyles = StyleSheet.create({
             color: '#c4e5ef',
     },
     addWorkoutButton:{
-        backgroundColor: 'black',
+        backgroundColor: '#202324',
         borderRadius: 50,
         paddingHorizontal: 50,
         paddingVertical: 0,
@@ -67,5 +68,6 @@ export const mainStyles = StyleSheet.create({
         color: 'black',
         fontSize: 25,
         top: -250,
+        fontFamily: "Poppins-Regular",
     }
 })
