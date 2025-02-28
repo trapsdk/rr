@@ -36,7 +36,7 @@ export default function HomeScreen() {
 
                 }}
                 theme={{
-                    calendarBackground: '#eff7f7',
+                    calendarBackground: 'white',
                     backgroundColor: 'beige',
                     textSectionTitleColor: '#5d6f75',
                     monthTextColor: 'black',

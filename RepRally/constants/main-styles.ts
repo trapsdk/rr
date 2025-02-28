@@ -17,7 +17,7 @@ export const mainStyles = StyleSheet.create({
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-        backgroundColor: '#eff7f7',
+        backgroundColor: 'white',
     },
     input: {
         height: 50,

@@ -18,8 +18,8 @@ export default function Layout() {
                 screenOptions={
                     {
                         tabBarStyle: {
-                            backgroundColor: '#eff7f7',
-                            borderColor: '#eff7f7',
+                            backgroundColor: 'white',
+                            borderColor: 'white',
                         },
                         headerShown: false,
                         tabBarShowLabel: true,
