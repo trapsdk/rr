@@ -25,6 +25,13 @@ export default function HomeScreen() {
         <View style={{flex:2, maxHeight: '75%'}}>
 
             <CalendarList
+                // onDayPress={day => {
+                //     setSelected(day.dateString);
+                // }}
+                // markedDates={{
+                //     [selected]: {selected: true, disableTouchEvent: true, selectedColor: 'black'}
+                // }}
+
                 pastScrollRange={12}
                 futureScrollRange={12}
                 // scrollEnabled={false}

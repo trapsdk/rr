@@ -3,7 +3,6 @@ import { mutation, query } from "./_generated/server";
 import {useConvex} from "convex/react";
 import {identity} from "react-native-svg/lib/typescript/lib/Matrix2D";
 
-
 export const list = query({
     args: {},
 
@@ -44,11 +43,16 @@ export const getExercisesByWorkout = query({
             return null; // Return null if no workout is found
         }
 
-        return workout.exercises; // Return the exercises array
+        // return workout.exercises; // Return the exercises array
     },
 });
 
-
+export const deleteWorkout = mutation({
+    args: { String: v.id("workouts") },
+    handler: async (ctx, args) => {
+        await ctx.db.delete(args.String);
+    },
+});
 
 export const createWorkout = mutation({
     args: {

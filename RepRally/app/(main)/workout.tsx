@@ -17,7 +17,7 @@ import {Authenticated, useConvex, useConvexAuth, useMutation, useQuery} from "co
 import {api} from "@/convex/_generated/api";
 import {useContext, useState} from "react";
 import {authStyles} from "@/constants/auth-styles";
-import {createWorkout} from "@/convex/workouts";
+import {createWorkout, deleteWorkout} from "@/convex/workouts";
 
 export default function Workout() {
 
@@ -27,23 +27,48 @@ export default function Workout() {
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [workoutName, setWorkoutName] = React.useState("");
     const addWorkout = useMutation(api.workouts.createWorkout);
+    const deleteWorkout = useMutation(api.workouts.deleteWorkout)
     const [currentView, setCurrentView] = React.useState("title"); // Tracks the current view in the modal
     const [modalVisible, setWorkoutModalVisible] = useState(false);
     const [exerciseName, setExerciseName] = useState("");
     const [reps, setReps] = useState("");
     const [sets, setSets] = useState("");
     const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; }[]>([]);
+    const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
+    const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: [] } | null>(null);
 
-    const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: any } | null>(null);
 
-    const openWorkoutDetails = async (workout: { _id: string; title: string, exercises: any }) => {
-    //     const exercises = useQuery(api.workouts.getExercisesByWorkout, {
-    //         title: workout.title,
-    //     });
-        setSelectedWorkout({ id: workout._id, title: workout.title, exercises });
+    const openWorkoutDetails = (workout: any) => {
+        setSelectedWorkout({ id: workout._id, title: workout.title, exercises: workout.exercises });
         setWorkoutModalVisible(true);
     };
 
+    const handleDeleteWorkout = async () => {
+
+        if (selectedWorkout) {
+            // @ts-ignore
+            await deleteWorkout({ id: selectedWorkout.id });
+        }
+
+        setWorkoutModalVisible(false);
+        setSelectedWorkout(null);
+
+    };
+    const handleLogWorkout = (date: string) => {
+        const newMarkedDates = { ...markedDates };
+
+        // Check if the date is already marked
+        if (newMarkedDates[date]) {
+            // If already marked, unmark it
+            delete newMarkedDates[date];
+        } else {
+            // If not marked, mark it with a custom style
+            newMarkedDates[date] = { selected: true, selectedColor: '#00adf5' };
+        }
+
+        // Update the state with the new marked dates
+        setMarkedDates(newMarkedDates);
+    };
 
     // const addWorkout = (): void => {
     //     router.navigate("/(screens)/new-workout")
@@ -112,12 +137,8 @@ export default function Workout() {
                         <Text style={mainStyles.addWorkoutButtonText}>+</Text>
                     </TouchableOpacity>
 
-                    {/*{workouts?.map(({ _id, name }) => <Text key={_id}>{name}</Text>)}*/}
                 </View>
             </View>
-
-
-
 
 
             {/*/////// Add workout Modal  //////*/}
@@ -146,14 +167,21 @@ export default function Workout() {
                                 />
                             </View>
 
-                            <View style={{ flex: 2, width: "75%", top: 100 }}>
-                                {exercises.map((exercise, index) => (
-                                    <View key={index} style={{ marginBottom: 10 }}>
-                                        <Text style={deep.exerciseText}>
-                                            {exercise.name} - {exercise.sets} sets of {exercise.reps} reps
-                                        </Text>
-                                    </View>
-                                ))}
+                            <View style={{ flex: 2, width: "75%", top: 25 }}>
+
+                                <FlatList
+                                    data={exercises}
+                                    keyExtractor={(item, index) => index.toString()}
+                                    renderItem={({ item }) => (
+                                        <View style={{ marginBottom: 10 }}>
+                                            <Text style={deep.exerciseText}>
+                                                {item.name} - {item.sets} sets of {item.reps} reps
+                                            </Text>
+                                        </View>
+                                    )}
+                                />
+
+
                             </View>
 
                             <View style={{ flex: 3, bottom: 75}}>
@@ -244,30 +272,35 @@ export default function Workout() {
 
                     {/* Modal Title */}
                     <View>
-                        <View style={{ flex: 1, top: 50 }}>
+                        <View style={{ flex: 1, top: 50, left: 75 }}>
                             <Text style={deep.modalTitle}>{selectedWorkout?.title}</Text>
                         </View>
 
                         {/* Exercises List */}
-                        <FlatList
-                            data={exercises}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => (
-                                <View style={mainStyles.bg}>
-                                    <Text style={deep.exerciseText}>
-                                        {item.name} - {item.sets} sets x {item.reps} reps
-                                    </Text>
-                                </View>
-                            )}
-                            ListEmptyComponent={
-                                <Text>No exercises added yet.</Text>
-                            }
-                        />
+                        <View style={{ flex: 2,  }}>
+                            <FlatList
+                                data={selectedWorkout?.exercises}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({item}) => (
+                                    <View style={deep.bg}>
+                                        <Text style={deep.exerciseText}>
+                                            {item.name} - {item.sets} sets x {item.reps} reps
+                                        </Text>
+                                    </View>
+                                )}
+                                ListEmptyComponent={
+                                    <Text>No exercises added yet.</Text>
+                                }
+                            />
+                        </View>
 
                         {/* Close Button */}
                         <View style={{bottom: +50}}>
                             <Button title="Close" onPress={() => setWorkoutModalVisible(false)} />
+                            <Button title="Log Workout" onPress={() => handleLogWorkout(new Date().toISOString().split('T')[0])} />
+                            <Button title="Delete" onPress={() => handleDeleteWorkout()} />
                         </View>
+
 
                     </View>
 
@@ -314,6 +347,7 @@ const deep = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "#fff",
+        paddingVertical: 10,
     },
     modalTitle: {
         fontSize: 30,
