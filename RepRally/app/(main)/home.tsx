@@ -1,15 +1,19 @@
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
-import { useQuery } from 'convex/react';
-import { api } from '@/convex/_generated/api';
-import React from 'react';
+import {ActivityIndicator, Alert, Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {mainStyles} from "@/constants/main-styles";
-import {ClerkLoaded} from "@clerk/clerk-expo";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import {backgroundColor} from "react-native-calendars/src/style";
+
+
+
 
 export default function HomeScreen() {
 
+    const [markedDates, setMarkedDates] = useState({});
+    const [selected, setSelected] = useState('');
+
     return (
+
+
 
         <View style={mainStyles.bg}>
 
@@ -25,13 +29,14 @@ export default function HomeScreen() {
         <View style={{flex:2, maxHeight: '75%'}}>
 
             <CalendarList
-                // onDayPress={day => {
-                //     setSelected(day.dateString);
-                // }}
-                // markedDates={{
-                //     [selected]: {selected: true, disableTouchEvent: true, selectedColor: 'black'}
-                // }}
-
+                onDayPress={day => {
+                    setSelected(day.dateString);
+                }}
+                markedDates={{
+                    [selected]: {selected: false, marked: true, disableTouchEvent: true, dotColor: "black"}
+                }}
+                // markedDates={{markedDates}}
+                markingType={"dot"}
                 pastScrollRange={12}
                 futureScrollRange={12}
                 // scrollEnabled={false}
@@ -62,10 +67,10 @@ export default function HomeScreen() {
                 // pagingEnabled={true}
 
             />
-        </View>
+            </View>
 
 
-        </View>
+            </View>
 
     );
 }

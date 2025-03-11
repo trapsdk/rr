@@ -30,7 +30,8 @@ function NewWorkout() {
 
     async function onAddNewWorkoutPressed() {
         await addWorkout({
-            name,
+            title: name,
+            exercises: [],
         })
         router.replace("/workout")
     }

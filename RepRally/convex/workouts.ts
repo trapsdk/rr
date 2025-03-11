@@ -47,12 +47,6 @@ export const getExercisesByWorkout = query({
     },
 });
 
-export const deleteWorkout = mutation({
-    args: { String: v.id("workouts") },
-    handler: async (ctx, args) => {
-        await ctx.db.delete(args.String);
-    },
-});
 
 export const createWorkout = mutation({
     args: {
@@ -61,6 +55,7 @@ export const createWorkout = mutation({
             name: v.string(),
             sets: v.number(),
             reps: v.number(),
+            weight: v.number(),
         }))
     },
     handler: async (ctx, args) => {
@@ -77,3 +72,11 @@ export const createWorkout = mutation({
         })
     }
 })
+
+export const deleteWorkout = mutation({
+    args: { id: v.id("workouts") },
+
+    handler: async (ctx, args) => {
+        await ctx.db.delete(args.id);
+    },
+});

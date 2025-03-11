@@ -9,7 +9,7 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
-    Modal
+    Modal, Keyboard
 } from 'react-native'
 import {ClerkLoaded, useAuth, useSignUp} from '@clerk/clerk-expo'
 import {mainStyles} from "@/constants/main-styles";
@@ -33,20 +33,20 @@ export default function Workout() {
     const [exerciseName, setExerciseName] = useState("");
     const [reps, setReps] = useState("");
     const [sets, setSets] = useState("");
-    const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; }[]>([]);
+    const [weight, setWeight] = useState("");
+    const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; weight: number }[]>([]);
     const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
     const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: [] } | null>(null);
 
 
     const openWorkoutDetails = (workout: any) => {
-        setSelectedWorkout({ id: workout._id, title: workout.title, exercises: workout.exercises });
+        setSelectedWorkout({ id: workout._id.toString(), title: workout.title, exercises: workout.exercises });
         setWorkoutModalVisible(true);
     };
 
     const handleDeleteWorkout = async () => {
 
         if (selectedWorkout) {
-            // @ts-ignore
             await deleteWorkout({ id: selectedWorkout.id });
         }
 
@@ -100,16 +100,18 @@ export default function Workout() {
     };
 
     const handleAddExercise = () => {
-        if (exerciseName && reps && sets) {
+        if (exerciseName && reps && sets && weight) {
             const newExercise = {
                 name: exerciseName,
                 reps: parseInt(reps, 10),
                 sets: parseInt(sets, 10),
+                weight: parseInt(weight, 10),
             };
             setExercises([...exercises, newExercise]); // Add the new exercise to the array
             setExerciseName(""); // Clear input fields
             setReps("");
             setSets("");
+            setWeight("");
             setCurrentView("exercises"); // Go back to the exercises view
         } else {
             alert("Please fill in all fields.");
@@ -117,6 +119,7 @@ export default function Workout() {
     };
 
 
+    // @ts-ignore
     return(
         <Authenticated>
         <ClerkLoaded>
@@ -175,7 +178,7 @@ export default function Workout() {
                                     renderItem={({ item }) => (
                                         <View style={{ marginBottom: 10 }}>
                                             <Text style={deep.exerciseText}>
-                                                {item.name} - {item.sets} sets of {item.reps} reps
+                                                {item.name} - {item.sets} sets of {item.reps} reps, {item.weight} lbs
                                             </Text>
                                         </View>
                                     )}
@@ -204,11 +207,11 @@ export default function Workout() {
                     {/* Exercises View */}
                     {currentView === "exercises" && (
                         <>
-                            <View style={{ flex: 1, top: 50 }}>
+                            <View style={{ flex: 1, top: 25 }}>
                                 <Text style={deep.modalTitle}>Add Exercises</Text>
                             </View>
 
-                            <View style={{ flex: 2, width: "75%", top: 20 }}>
+                            <View style={{ flex: 2, width: "75%", top: -50 }}>
                                 <TextInput
                                     style={deep.input}
                                     placeholder="Exercise Name"
@@ -223,6 +226,8 @@ export default function Workout() {
                                     value={sets}
                                     onChangeText={setSets}
                                     keyboardType="numeric"
+                                    returnKeyType={"done"}
+                                    onSubmitEditing={() => Keyboard.dismiss()}
                                 />
                                 <TextInput
                                     style={deep.input}
@@ -231,11 +236,23 @@ export default function Workout() {
                                     value={reps}
                                     onChangeText={setReps}
                                     keyboardType="numeric"
+                                    returnKeyType={"done"}
+                                    onSubmitEditing={() => Keyboard.dismiss()}
+                                />
+                                <TextInput
+                                    style={deep.input}
+                                    placeholder="Weight"
+                                    placeholderTextColor="#2e2e2e"
+                                    value={weight}
+                                    onChangeText={setWeight}
+                                    keyboardType="numeric"
+                                    returnKeyType={"done"}
+                                    onSubmitEditing={() => Keyboard.dismiss()}
                                 />
 
                             </View>
 
-                            <View style={{ flex: 3, bottom: 0 }}>
+                            <View style={{ flex: 3,  }}>
                                 <TouchableOpacity
                                     style={mainStyles.addWorkoutButton}
                                     onPress={handleAddExercise}
@@ -281,10 +298,10 @@ export default function Workout() {
                             <FlatList
                                 data={selectedWorkout?.exercises}
                                 keyExtractor={(item, index) => index.toString()}
-                                renderItem={({item}) => (
+                                renderItem={({item}: {item: {name: string, sets: number, reps: number, weight: number}}) => (
                                     <View style={deep.bg}>
                                         <Text style={deep.exerciseText}>
-                                            {item.name} - {item.sets} sets x {item.reps} reps
+                                            {item.name} - {item.sets} sets x {item.reps} reps, {item.weight} lbs
                                         </Text>
                                     </View>
                                 )}
