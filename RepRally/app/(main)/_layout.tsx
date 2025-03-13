@@ -7,11 +7,27 @@ import {A} from "@clerk/clerk-react/dist/useAuth-D_CEhNaa";
 import {View} from "react-native";
 import { Image } from 'react-native';
 import {StatusBar} from "expo-status-bar";
+import {ConvexReactClient} from "convex/react";
+import {ClerkProvider, useAuth} from "@clerk/clerk-expo";
+import {tokenCache} from "@/cache";
+import {ConvexProviderWithClerk} from "convex/react-clerk";
 
 export default function Layout() {
 
 
+    const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
+
+    if (!publishableKey) {
+        throw new Error('Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env')
+    }
+    const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+        unsavedChangesWarning: false,
+    });
+
+
+
     return (
+
 
             <Tabs
 

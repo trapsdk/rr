@@ -11,23 +11,22 @@ import {
     TouchableOpacity,
     Modal, Keyboard
 } from 'react-native'
-import {ClerkLoaded, useAuth, useSignUp} from '@clerk/clerk-expo'
+import {ClerkLoaded} from '@clerk/clerk-expo'
 import {mainStyles} from "@/constants/main-styles";
-import {Authenticated, useConvex, useConvexAuth, useMutation, useQuery} from "convex/react";
+import {Authenticated, useMutation, useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
-import {useContext, useState} from "react";
-import {authStyles} from "@/constants/auth-styles";
-import {createWorkout, deleteWorkout} from "@/convex/workouts";
+import {useState} from "react";
 
 export default function Workout() {
 
-    const {isLoading} = useConvexAuth();
+
     const workouts = useQuery(api.workouts.list);
-    const [workoutId, setWorkoutId] = React.useState("");
-    const [isModalVisible, setModalVisible] = React.useState(false);
-    const [workoutName, setWorkoutName] = React.useState("");
     const addWorkout = useMutation(api.workouts.createWorkout);
     const deleteWorkout = useMutation(api.workouts.deleteWorkout)
+    const markDate = useMutation(api.markeddates.createMarkedDates);
+
+    const [isModalVisible, setModalVisible] = React.useState(false);
+    const [workoutName, setWorkoutName] = React.useState("");
     const [currentView, setCurrentView] = React.useState("title"); // Tracks the current view in the modal
     const [modalVisible, setWorkoutModalVisible] = useState(false);
     const [exerciseName, setExerciseName] = useState("");
@@ -36,43 +35,32 @@ export default function Workout() {
     const [weight, setWeight] = useState("");
     const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; weight: number }[]>([]);
     const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
-    const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: [] } | null>(null);
+    // const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: [] } | null>(null);
 
+    const [selectedWorkout, setSelectedWorkout] = useState<any | null>(null);
+
+    const handleLogWorkout = async () => {
+        await markDate({
+            date: new Date().toISOString().split("T")[0],
+            selected: false,
+            marked: true,
+            dotColor: "black",
+        })
+    };
 
     const openWorkoutDetails = (workout: any) => {
-        setSelectedWorkout({ id: workout._id.toString(), title: workout.title, exercises: workout.exercises });
+        setSelectedWorkout(workout);
         setWorkoutModalVisible(true);
     };
 
     const handleDeleteWorkout = async () => {
 
-        if (selectedWorkout) {
-            await deleteWorkout({ id: selectedWorkout.id });
-        }
-
+        await deleteWorkout( { id: selectedWorkout._id });
         setWorkoutModalVisible(false);
         setSelectedWorkout(null);
 
     };
-    const handleLogWorkout = (date: string) => {
-        const newMarkedDates = { ...markedDates };
 
-        // Check if the date is already marked
-        if (newMarkedDates[date]) {
-            // If already marked, unmark it
-            delete newMarkedDates[date];
-        } else {
-            // If not marked, mark it with a custom style
-            newMarkedDates[date] = { selected: true, selectedColor: '#00adf5' };
-        }
-
-        // Update the state with the new marked dates
-        setMarkedDates(newMarkedDates);
-    };
-
-    // const addWorkout = (): void => {
-    //     router.navigate("/(screens)/new-workout")
-    // };
     async function onAddNewWorkoutPressed(workoutName: string, exercises: any[]) {
         await addWorkout({
             title: workoutName,
@@ -314,8 +302,8 @@ export default function Workout() {
                         {/* Close Button */}
                         <View style={{bottom: +50}}>
                             <Button title="Close" onPress={() => setWorkoutModalVisible(false)} />
-                            <Button title="Log Workout" onPress={() => handleLogWorkout(new Date().toISOString().split('T')[0])} />
-                            <Button title="Delete" onPress={() => handleDeleteWorkout()} />
+                            <Button title="Log Workout" onPress={() => handleLogWorkout()} />
+                            <Button title="Delete" onPress={() => handleDeleteWorkout() } />
                         </View>
 
 

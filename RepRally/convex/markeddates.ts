@@ -1,14 +1,13 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import {useConvex} from "convex/react";
+import {identity} from "react-native-svg/lib/typescript/lib/Matrix2D";
 
 
-export const list = query({
+export const getMarkedDates = query({
     args: {},
 
-
     handler: async (ctx) => {
-
 
         const identity = await ctx.auth.getUserIdentity();
         console.log("Identity:", identity);
@@ -17,34 +16,33 @@ export const list = query({
         }
         console.log("Subject:", identity.subject);
         return await ctx.db
-            .query("exercises")
+            .query("markedDates")
             .filter(q =>
                 q.eq(q.field("userId"), identity.subject))
-            .order("asc")
             .collect();
     },
 });
 
-export const addExercise = mutation({
+export const createMarkedDates = mutation({
     args: {
-        exercise: v.string(),
-        targetReps: v.number(),
-        weight: v.number(),
-        workoutId: v.any(),
+        date: v.string(),
+        selected: v.boolean(),
+        marked: v.boolean(),
+        dotColor: v.string(),
     },
     handler: async (ctx, args) => {
         const auth = await ctx.auth.getUserIdentity()
         if(!auth) {
             throw new Error("Not authorized")
         }
-        return await ctx.db.insert("exercises", {
-            exercise: args.exercise,
-            targetReps: args.targetReps,
-            weight: args.weight,
+
+        // Use the user's ID to insert the workout into the Convex database
+        return await ctx.db.insert("markedDates", {
             userId: auth?.subject,
-            workoutId: args.workoutId
+            date: args.date,
+            selected: args.selected,
+            marked: args.marked,
+            dotColor: args.dotColor,
         })
-
     }
-
 })

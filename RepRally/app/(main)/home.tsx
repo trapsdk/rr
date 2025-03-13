@@ -2,17 +2,27 @@ import {ActivityIndicator, Alert, Image, StyleSheet, Text, View} from 'react-nat
 import React, {useEffect, useState} from 'react';
 import {mainStyles} from "@/constants/main-styles";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-
+import {getMarkedDates, createMarkedDates} from "@/convex/markeddates";
+import {useQuery} from "convex/react";
+import {api} from "@/convex/_generated/api";
 
 
 
 export default function HomeScreen() {
 
-    const [markedDates, setMarkedDates] = useState({});
+    const getDates = useQuery(api.markeddates.getMarkedDates);
+
     const [selected, setSelected] = useState('');
 
+    const markedDates = getDates?.reduce((acc, date) => {
+        acc[date.date] = {
+            selected: date.selected,
+            marked: date.marked,
+            dotColor: date.dotColor,
+        };
+        return acc;
+    }, {} as { [key: string]: { selected?: boolean; marked?: boolean; dotColor?: string } }) ?? {};
     return (
-
 
 
         <View style={mainStyles.bg}>
@@ -32,9 +42,7 @@ export default function HomeScreen() {
                 onDayPress={day => {
                     setSelected(day.dateString);
                 }}
-                markedDates={{
-                    [selected]: {selected: false, marked: true, disableTouchEvent: true, dotColor: "black"}
-                }}
+                markedDates={ markedDates }
                 // markedDates={{markedDates}}
                 markingType={"dot"}
                 pastScrollRange={12}

@@ -2,7 +2,6 @@ import {isClerkAPIResponseError, useSignIn} from '@clerk/clerk-expo'
 import {Link, router, useRouter} from 'expo-router'
 import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity, Alert, SafeAreaView} from 'react-native'
 import React from 'react'
-import {customStyles} from "@/constants/custom-styles";
 import {authStyles} from "@/constants/auth-styles";
 import { ClerkAPIError } from '@clerk/types'
 import {mainStyles} from "@/constants/main-styles";
@@ -44,14 +43,16 @@ export default function Page() {
             function isClerkAPIError(error: any): error is ClerkAPIError {
                 // @ts-ignore
                 return (
-                    error &&
-                    Array.isArray(error.errors) &&
-                    error.errors.every(err => typeof err.message === 'string')
+                    error.message
+                    // error &&
+                    // Array.isArray(error.errors) &&
+                    // error.errors.every(err => typeof err.message === 'string')
                 );
             }
             console.error('Clerk Error:', err)
             if (isClerkAPIError(err)) {
-                const errorMessage = err.errors[0].message;
+                // const clerkError = err as ClerkAPIError & { errors: any[] }; // Add this line
+                const errorMessage = err.message;
                 Alert.alert('Sign-In Error', errorMessage);
             } else {
                 Alert.alert('Error', 'An unexpected error occurred.');
