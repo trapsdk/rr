@@ -1,16 +1,8 @@
-import { Stack } from 'expo-router/stack'
-import {Colors} from "@/constants/Colors";
+
 import {Slot, Tabs} from "expo-router";
 import React from "react";
 import {AntDesign} from "@expo/vector-icons";
-import {A} from "@clerk/clerk-react/dist/useAuth-D_CEhNaa";
-import {View} from "react-native";
-import { Image } from 'react-native';
-import {StatusBar} from "expo-status-bar";
 import {ConvexReactClient} from "convex/react";
-import {ClerkProvider, useAuth} from "@clerk/clerk-expo";
-import {tokenCache} from "@/cache";
-import {ConvexProviderWithClerk} from "convex/react-clerk";
 
 export default function Layout() {
 
