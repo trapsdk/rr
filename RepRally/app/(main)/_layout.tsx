@@ -1,22 +1,9 @@
 
-import {Slot, Tabs} from "expo-router";
+import {Tabs} from "expo-router";
 import React from "react";
 import {AntDesign} from "@expo/vector-icons";
-import {ConvexReactClient} from "convex/react";
 
 export default function Layout() {
-
-
-    const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
-
-    if (!publishableKey) {
-        throw new Error('Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env')
-    }
-    const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
-        unsavedChangesWarning: false,
-    });
-
-
 
     return (
 

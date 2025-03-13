@@ -13,7 +13,7 @@ export default function Page() {
 
     const [emailAddress, setEmailAddress] = React.useState('')
     const [password, setPassword] = React.useState('')
-    let [errors, setErrors] = React.useState<ClerkAPIError[]>()
+    // let [errors, setErrors] = React.useState<ClerkAPIError[]>()
 
 
     // Handle the submission of the sign-in form
@@ -97,7 +97,6 @@ export default function Page() {
                 <View style={{bottom: -150}}>
                     <TouchableOpacity style={authStyles.button} onPress={onSignInPress}>
                         <Text style={authStyles.buttontext}>login</Text>
-                        {/*{errorMessage ? <Text style={authStyles.errorText}>{errorMessage}</Text> : null}*/}
                     </TouchableOpacity>
                 </View>
 
