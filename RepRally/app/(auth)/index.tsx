@@ -1,15 +1,11 @@
-import {SignedIn, SignedOut, useAuth, useUser} from '@clerk/clerk-expo'
-import {Link, router, SplashScreen} from 'expo-router'
+import {SignedOut} from '@clerk/clerk-expo'
+import {router} from 'expo-router'
 import { Image,  SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import React from "react";
-import {useFonts} from "expo-font";
 
 export default function Page() {
 
-    // assigning variables
-    const [fontsLoaded] = useFonts({
-        "Poppins-Regular": require("../fonts/Poppins-Regular.ttf"),
-    })
+
         return (
 
             // 1. load imagebackground

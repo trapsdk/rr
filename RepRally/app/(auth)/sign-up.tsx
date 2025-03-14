@@ -2,16 +2,13 @@ import * as React from 'react'
 import {
     Text,
     TextInput,
-    Button,
     View,
-    StyleSheet,
-    ImageBackground,
     TouchableOpacity,
     Alert,
     SafeAreaView
 } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
+import {useRouter } from 'expo-router'
 import {customStyles} from "@/constants/custom-styles";
 import {authStyles} from "@/constants/auth-styles";
 import {ClerkAPIError} from "@clerk/types";
@@ -95,12 +92,6 @@ export default function Page() {
         }
     }
 
-    const styles = StyleSheet.create({
-        textInput:{
-            borderColor: "red",
-
-        },
-    });
 
     if (pendingVerification) {
         return (

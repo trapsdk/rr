@@ -1,6 +1,6 @@
-import {isClerkAPIResponseError, useSignIn} from '@clerk/clerk-expo'
-import {Link, router, useRouter} from 'expo-router'
-import {Text, TextInput, Button, View, ImageBackground, TouchableOpacity, Alert, SafeAreaView} from 'react-native'
+import {useSignIn} from '@clerk/clerk-expo'
+import {useRouter} from 'expo-router'
+import {Text, TextInput,View,TouchableOpacity, Alert, SafeAreaView} from 'react-native'
 import React from 'react'
 import {authStyles} from "@/constants/auth-styles";
 import { ClerkAPIError } from '@clerk/types'

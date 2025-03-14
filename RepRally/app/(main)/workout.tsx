@@ -34,7 +34,6 @@ export default function Workout() {
     const [sets, setSets] = useState("");
     const [weight, setWeight] = useState("");
     const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; weight: number }[]>([]);
-    const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
     // const [selectedWorkout, setSelectedWorkout] = useState<{ id: string; title: string; exercises: [] } | null>(null);
 
     const [selectedWorkout, setSelectedWorkout] = useState<any | null>(null);
@@ -70,16 +69,14 @@ export default function Workout() {
     const handleCloseModal = () => {
 
         if (workoutName && exercises.length > 0) {
-
             setModalVisible(false); // Close the modal
             setCurrentView("title"); // Reset to the title view when modal is closed
             setWorkoutName(""); // Reset the input field
             onAddNewWorkoutPressed(workoutName, exercises); // Pass the workout name to the parent component
-
-
         } else {
             alert("Please add a title and at least one exercise.");
         }
+
     };
 
 
