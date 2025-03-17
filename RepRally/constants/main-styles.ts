@@ -46,7 +46,7 @@ export const mainStyles = StyleSheet.create({
         backgroundColor: '#202324',
         borderRadius: 50,
         paddingHorizontal: 50,
-        paddingVertical: 0,
+        paddingVertical: 10,
         justifyContent: 'center',
         alignItems: 'center',
         bottom: -155,

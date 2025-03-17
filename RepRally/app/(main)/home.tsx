@@ -35,14 +35,10 @@ export default function HomeScreen() {
                 }}>Calendar</Text>
             </View>
 
-            <View style={{flex:2, maxHeight: '75%'}}>
+            <View style={{flex:2, maxHeight: '75%', top: -25}}>
 
                 <CalendarList
-                onDayPress={day => {
-                    setSelected(day.dateString);
-                }}
-                markedDates={ markedDates }
-                markingType={"dot"}
+                markedDates={markedDates}
                 pastScrollRange={12}
                 futureScrollRange={12}
                 showScrollIndicator={true}
@@ -55,7 +51,7 @@ export default function HomeScreen() {
                     textMonthFontFamily: "Poppins-Regular",
                     textDayHeaderFontFamily: "Poppins-Regular",
                     todayTextColor: 'white',
-                    dayTextColor: '#5d6f75',
+                    dayTextColor: 'black',
                     todayBackgroundColor: 'black',
                 }}
 

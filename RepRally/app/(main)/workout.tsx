@@ -3,7 +3,6 @@ import * as React from
 import {
     Text,
     TextInput,
-    Button,
     View,
     StyleSheet,
     ActivityIndicator,
@@ -39,12 +38,21 @@ export default function Workout() {
     const [selectedWorkout, setSelectedWorkout] = useState<any | null>(null);
 
     const handleLogWorkout = async () => {
+
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
         await markDate({
-            date: new Date().toISOString().split("T")[0],
+            date: formattedDate,
             selected: false,
             marked: true,
             dotColor: "black",
         })
+
+        alert("Workout has been logged to Calender.");
     };
 
     const openWorkoutDetails = (workout: any) => {
@@ -65,16 +73,20 @@ export default function Workout() {
             title: workoutName,
             exercises: exercises,
         })
+
+        setExercises([]);
+
     }
     const handleCloseModal = () => {
 
         if (workoutName && exercises.length > 0) {
             setModalVisible(false); // Close the modal
-            setCurrentView("title"); // Reset to the title view when modal is closed
-            setWorkoutName(""); // Reset the input field
+
             onAddNewWorkoutPressed(workoutName, exercises); // Pass the workout name to the parent component
-        } else {
-            alert("Please add a title and at least one exercise.");
+            setWorkoutName(""); // Reset the input field
+        } else if ( workoutName.length < 1 ){
+            setModalVisible(false); // Close// the modal
+            setExercises([]);
         }
 
     };
@@ -150,7 +162,7 @@ export default function Workout() {
                                     value={workoutName}
                                     placeholder="Enter a title"
                                     placeholderTextColor="#2e2e2e"
-                                    maxLength={25}
+                                    maxLength={22}
                                     onChangeText={setWorkoutName}
                                 />
                             </View>
@@ -274,17 +286,17 @@ export default function Workout() {
 
                     {/* Modal Title */}
                     <View>
-                        <View style={{ flex: 1, top: 50, left: 75 }}>
+                        <View style={{ flex: 1, top: 75, alignItems: "center", maxWidth: "90%" }}>
                             <Text style={deep.modalTitle}>{selectedWorkout?.title}</Text>
                         </View>
 
                         {/* Exercises List */}
-                        <View style={{ flex: 2,  }}>
+                        <View style={{ flex: 3, top: -25 }}>
                             <FlatList
                                 data={selectedWorkout?.exercises}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({item}: {item: {name: string, sets: number, reps: number, weight: number}}) => (
-                                    <View style={deep.bg}>
+                                    <View style={deep.exerciseListItem}>
                                         <Text style={deep.exerciseText}>
                                             {item.name} - {item.sets} sets x {item.reps} reps, {item.weight} lbs
                                         </Text>
@@ -296,11 +308,31 @@ export default function Workout() {
                             />
                         </View>
 
-                        {/* Close Button */}
-                        <View style={{bottom: +50}}>
-                            <Button title="Close" onPress={() => setWorkoutModalVisible(false)} />
-                            <Button title="Log Workout" onPress={() => handleLogWorkout()} />
-                            <Button title="Delete" onPress={() => handleDeleteWorkout() } />
+                        {/* Buttons at bottom of Modal */}
+
+                        <View style={{flex: 1, top: -125}}>
+
+                            <View style={{ top: 0}}>
+                                <TouchableOpacity style={deep.workoutButtons} onPress={()=> setWorkoutModalVisible(false)}>
+                                    <Text style={deep.workoutButtonsText}>Close</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={deep.workoutButtons} onPress={()=> handleLogWorkout()}>
+                                    <Text style={deep.workoutButtonsText}>Log</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ top: 0}}>
+                            <TouchableOpacity style={deep.workoutButtons} onPress={()=> null}>
+                                <Text style={deep.workoutButtonsText}>Edit</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={deep.workoutButtons} onPress={()=> handleDeleteWorkout()}>
+                                <Text style={deep.workoutButtonsText}>Delete</Text>
+                            </TouchableOpacity>
+                            </View>
+
+                            {/*<Button title="Close" onPress={() => setWorkoutModalVisible(false)} />*/}
+                            {/*<Button title="Log Workout" onPress={() => handleLogWorkout()} />*/}
+                            {/*<Button title="Delete" onPress={() => handleDeleteWorkout() } />*/}
                         </View>
 
 
@@ -351,11 +383,47 @@ const deep = StyleSheet.create({
         backgroundColor: "#fff",
         paddingVertical: 10,
     },
+    workoutButtons:{
+        backgroundColor: '#202324',
+        borderRadius: 50,
+        paddingHorizontal: 50,
+        // marginHorizontal: 100,
+        paddingVertical: 20,
+        marginVertical: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // bottom: -155,
+    },
+    workoutButtonsText:{
+        fontSize: 15,
+        fontFamily: "Poppins-Regular",
+        color: 'white',
+    },
+    exerciseText: {
+        fontSize: 17,
+        color: "#000000",
+        fontFamily: "Poppins-Regular",
+        textAlign: "center",
+    },
+    exerciseListItem: {
+        padding: 15,
+        marginVertical: 10,
+        // backgroundColor: "#202324",
+        borderColor: "#202324",
+        borderWidth: 1,
+        borderRadius: 5,
+        alignItems: "center",
+    },
+    flatlistbg: {
+        flex: 1,
+        alignItems: "center",
+        backgroundColor: "#fwferg",
+        paddingVertical: 10,
+    },
     modalTitle: {
         fontSize: 30,
         color: "#2e2e2e",
         fontFamily: "Poppins-Regular",
-        left: -75,
     },
     input: {
         fontSize: 15,
@@ -391,10 +459,5 @@ const deep = StyleSheet.create({
         fontSize: 18,
         fontFamily: "Poppins-Regular",
     },
-    exerciseText: {
-        fontSize: 20,
-        color: "#2e2e2e",
-        fontFamily: "Poppins-Regular",
-        textAlign: "center",
-    },
+
 });

@@ -1,6 +1,7 @@
 import {ClerkLoaded,useAuth, useUser} from '@clerk/clerk-expo'
-import {Button,Text, View} from 'react-native'
+import {Button, Text, TouchableOpacity, View} from 'react-native'
 import React from "react";
+import {StyleSheet} from "react-native";
 import {mainStyles} from "@/constants/main-styles";
 
 import * as Linking from "expo-linking";
@@ -29,23 +30,29 @@ export default function Settings() {
 
             <View style={mainStyles.bg}>
 
-
             <View style={{flex: 1, maxHeight: '20%', top: 100}}>
                 <Text style={{
                     color: 'black',
                     fontFamily: "Poppins-Regular",
-                    left: -100,
+                    left: -85,
                     fontSize: 30,
                 }}>Settings</Text>
+
+                <View style={{
+                    top: -200,
+                    left: 80,
+                }}>
+                <TouchableOpacity style={settingStyles.signoutButton} onPress={()=> handleSignOut()}>
+                    <Text style={settingStyles.signoutButtonText}>Sign Out</Text>
+                </TouchableOpacity>
+                </View>
+
             </View>
 
-            <View style={{flex: 2,  height: '100%', top: 300}}>
-                <Text style={mainStyles.welcometext}>CurrentUser: "{useUser().user?.username}" </Text>
+            <View style={{flex: 2, maxWidth: "95%", top: 275}}>
+                <Text style={mainStyles.welcometext}>Current User: "{useUser().user?.username}" </Text>
             </View>
 
-            <View style={{flex: 3, top: 200}}>
-                <Button title="Sign Out" onPress={handleSignOut} />
-            </View>
 
             </View>
 
@@ -55,3 +62,19 @@ export default function Settings() {
         </ClerkLoaded>
     )
 }
+const settingStyles = StyleSheet.create({
+    signoutButton:{
+        backgroundColor: '#202324',
+        borderRadius: 50,
+        paddingHorizontal: 35,
+        paddingVertical: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: -155,
+    },
+    signoutButtonText:{
+        fontSize: 20,
+        fontFamily: "Poppins-Regular",
+        color: 'white',
+    },
+});
