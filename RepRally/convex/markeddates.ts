@@ -37,12 +37,15 @@ export const createMarkedDates = mutation({
         }
 
         // Use the user's ID to insert the workout into the Convex database
-        return await ctx.db.insert("markedDates", {
+        await ctx.db.insert("markedDates", {
             userId: auth?.subject,
             date: args.date,
             selected: args.selected,
             marked: args.marked,
             dotColor: args.dotColor,
         })
+
+        // return await ctx.scheduler.runAt(new Date(), "updateMarkedDates");
+
     }
 })

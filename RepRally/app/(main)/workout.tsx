@@ -8,8 +8,9 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
-    Modal, Keyboard
+    Modal, Keyboard, Alert
 } from 'react-native'
+
 import {ClerkLoaded} from '@clerk/clerk-expo'
 import {mainStyles} from "@/constants/main-styles";
 import {Authenticated, useMutation, useQuery} from "convex/react";
@@ -49,8 +50,14 @@ export default function Workout() {
             date: formattedDate,
             selected: false,
             marked: true,
-            dotColor: "black",
+            dotColor: "white",
         })
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowDate = tomorrow.toISOString().split('T')[0];
+        console.log(tomorrowDate);
+
 
         alert("Workout has been logged to Calender.");
     };
@@ -59,12 +66,23 @@ export default function Workout() {
         setSelectedWorkout(workout);
         setWorkoutModalVisible(true);
     };
-
-    const handleDeleteWorkout = async () => {
-
+    const handleDeleteWorkoutFunction =  async () => {
         await deleteWorkout( { id: selectedWorkout._id });
         setWorkoutModalVisible(false);
         setSelectedWorkout(null);
+    };
+
+    const handleDeleteWorkout = async () => {
+
+        Alert.alert(
+            'Confirm Delete',
+            'Are you sure you want to delete this workout?',
+            [
+                { text: 'No', onPress: () => null },
+                { text: 'Yes', onPress: () => handleDeleteWorkoutFunction() },
+            ],
+            { cancelable: false }
+        )
 
     };
 
@@ -84,7 +102,11 @@ export default function Workout() {
 
             onAddNewWorkoutPressed(workoutName, exercises); // Pass the workout name to the parent component
             setWorkoutName(""); // Reset the input field
-        } else if ( workoutName.length < 1 ){
+        } else if (workoutName.length < 1 && exercises.length > 0) {
+            Alert.alert('Please enter a title for the workout.');
+        }
+
+        else if ( workoutName.length < 1 ){
             setModalVisible(false); // Close// the modal
             setExercises([]);
         }
@@ -152,7 +174,7 @@ export default function Workout() {
                     {/* Title View */}
                     {currentView === "title" && (
                         <>
-                            <View style={{ flex: 1, top: 50 }}>
+                            <View style={{ flex: 1, top: 70 }}>
                                 <Text style={deep.modalTitle}>New Workout</Text>
                             </View>
 
@@ -185,18 +207,24 @@ export default function Workout() {
                             </View>
 
                             <View style={{ flex: 3, bottom: 75}}>
-                                <TouchableOpacity
-                                    style={mainStyles.addWorkoutButton}
-                                    onPress={handleAddExercises}
-                                >
-                                    <Text style={mainStyles.addWorkoutButtonText}>Add Exercises</Text>
-                                </TouchableOpacity>
+
+                                <View style={{ top: 25}}>
+                                    <TouchableOpacity
+                                        style={mainStyles.addWorkoutButton}
+                                        onPress={handleAddExercises}
+                                    >
+                                        <Text style={mainStyles.addWorkoutButtonText}>Add Exercises</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
                                 <TouchableOpacity
                                     style={deep.backButton}
                                     onPress={() => handleCloseModal()} // Go back to the exercises view
                                 >
                                     <Text style={deep.backButtonText}>Save Workout</Text>
                                 </TouchableOpacity>
+
                             </View>
                         </>
                     )}
@@ -204,11 +232,11 @@ export default function Workout() {
                     {/* Exercises View */}
                     {currentView === "exercises" && (
                         <>
-                            <View style={{ flex: 1, top: 25 }}>
+                            <View style={{ flex: 1, top: 70 }}>
                                 <Text style={deep.modalTitle}>Add Exercises</Text>
                             </View>
 
-                            <View style={{ flex: 2, width: "75%", top: -50 }}>
+                            <View style={{ flex: 2, width: "75%", top: -30 }}>
                                 <TextInput
                                     style={deep.input}
                                     placeholder="Exercise Name"
@@ -249,20 +277,25 @@ export default function Workout() {
 
                             </View>
 
-                            <View style={{ flex: 3,  }}>
-                                <TouchableOpacity
-                                    style={mainStyles.addWorkoutButton}
-                                    onPress={handleAddExercise}
-                                >
-                                    <Text style={mainStyles.addWorkoutButtonText}>Save Exercise</Text>
-                                </TouchableOpacity>
+                            <View style={{ flex: 2  }}>
+                                <View style={{bottom: 33}}>
+                                    <TouchableOpacity
+                                        style={mainStyles.addWorkoutButton}
+                                        onPress={handleAddExercise}
+                                    >
+                                        <Text style={mainStyles.addWorkoutButtonText}>Save Exercise</Text>
+                                    </TouchableOpacity>
+                                </View>
 
-                                <TouchableOpacity
-                                    style={deep.backButton}
-                                    onPress={() => setCurrentView("title")} // Go back to the exercises view
-                                >
-                                    <Text style={deep.backButtonText}>Go Back</Text>
-                                </TouchableOpacity>
+                                <View style={{bottom: 55}}>
+                                    <TouchableOpacity
+                                        style={deep.backButton}
+                                        onPress={() => setCurrentView("title")} // Go back to the exercises view
+                                    >
+                                        <Text style={deep.backButtonText}>Go Back</Text>
+                                    </TouchableOpacity>
+                                </View>
+
 
                             </View>
                         </>
@@ -278,7 +311,6 @@ export default function Workout() {
             <Modal
                 animationType={"slide"}
                 presentationStyle={"pageSheet"}
-                // transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => setWorkoutModalVisible(false)}
             >
@@ -286,7 +318,7 @@ export default function Workout() {
 
                     {/* Modal Title */}
                     <View>
-                        <View style={{ flex: 1, top: 75, alignItems: "center", maxWidth: "90%" }}>
+                        <View style={{ flex: 1, top: 65, alignItems: "center", maxWidth: "90%" }}>
                             <Text style={deep.modalTitle}>{selectedWorkout?.title}</Text>
                         </View>
 
@@ -310,9 +342,9 @@ export default function Workout() {
 
                         {/* Buttons at bottom of Modal */}
 
-                        <View style={{flex: 1, top: -125}}>
+                        <View style={{flex: 1, alignItems: "center"}}>
 
-                            <View style={{ top: 0}}>
+                            <View style={{left: -75, bottom: -2}}>
                                 <TouchableOpacity style={deep.workoutButtons} onPress={()=> setWorkoutModalVisible(false)}>
                                     <Text style={deep.workoutButtonsText}>Close</Text>
                                 </TouchableOpacity>
@@ -321,7 +353,7 @@ export default function Workout() {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ top: 0}}>
+                            <View style={{left: 75, bottom: 125}}>
                             <TouchableOpacity style={deep.workoutButtons} onPress={()=> null}>
                                 <Text style={deep.workoutButtonsText}>Edit</Text>
                             </TouchableOpacity>
@@ -386,16 +418,15 @@ const deep = StyleSheet.create({
     workoutButtons:{
         backgroundColor: '#202324',
         borderRadius: 50,
-        paddingHorizontal: 50,
-        // marginHorizontal: 100,
-        paddingVertical: 20,
+        paddingVertical: 15,
         marginVertical: 5,
         justifyContent: 'center',
         alignItems: 'center',
+        width: 120,
         // bottom: -155,
     },
     workoutButtonsText:{
-        fontSize: 15,
+        fontSize: 20,
         fontFamily: "Poppins-Regular",
         color: 'white',
     },
