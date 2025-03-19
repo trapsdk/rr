@@ -50,7 +50,7 @@ export default function Workout() {
             date: formattedDate,
             selected: false,
             marked: true,
-            dotColor: "white",
+            dotColor: "black",
         })
 
         const tomorrow = new Date();
