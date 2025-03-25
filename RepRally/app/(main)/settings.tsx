@@ -1,5 +1,5 @@
 import {ClerkLoaded,useAuth, useUser} from '@clerk/clerk-expo'
-import {Button, Text, TouchableOpacity, View} from 'react-native'
+import { Text, TouchableOpacity, View} from 'react-native'
 import React from "react";
 import {StyleSheet} from "react-native";
 import {mainStyles} from "@/constants/main-styles";

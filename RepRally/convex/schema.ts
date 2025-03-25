@@ -20,4 +20,7 @@ export default defineSchema({
         marked: v.boolean(),
         dotColor: v.string(),
     }),
+    tomorrowDate: defineTable({
+        tommorrowDate: v.string(),
+    })
 });

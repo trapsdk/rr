@@ -1,18 +1,13 @@
 import { Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {mainStyles} from "@/constants/main-styles";
 import {CalendarList} from 'react-native-calendars';
 import {useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
 
-
-
 export default function HomeScreen() {
 
     const getDates = useQuery(api.markeddates.getMarkedDates);
-
-    const [selected, setSelected] = useState('');
-
     const markedDates = getDates?.reduce((acc, date) => {
         acc[date.date] = {
             selected: date.selected,
@@ -21,11 +16,10 @@ export default function HomeScreen() {
         };
         return acc;
     }, {} as { [key: string]: { selected?: boolean; marked?: boolean; dotColor?: string } }) ?? {};
+
     return (
 
-
         <View style={mainStyles.bg}>
-
             <View style={{flex: 1, maxHeight: '20%', top: 85}}>
                 <Text style={{
                     color: 'black',
@@ -34,9 +28,7 @@ export default function HomeScreen() {
                     fontSize: 30,
                 }}>Calendar</Text>
             </View>
-
             <View style={{flex:2, maxHeight: '75%', top: -25}}>
-
                 <CalendarList
                 markedDates={markedDates}
                 pastScrollRange={12}
