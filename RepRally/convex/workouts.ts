@@ -9,7 +9,7 @@ export const list = query({
         if (identity === null) {
             throw new Error("Not authenticated");
         }
-        console.log("Subject:", identity.subject);
+        // console.log("Subject:", identity.subject);
         return await ctx.db
             .query("workouts")
             .filter(q =>
@@ -20,26 +20,13 @@ export const list = query({
 });
 export const getExercisesByWorkout = query({
     args: {
-        title: v.string(), // Selected workout title
+        workoutId: v.id("workouts"),
     },
     handler: async (ctx, args) => {
-        const identity = await ctx.auth.getUserIdentity();
-        if (identity === null) {
-            throw new Error("Not authenticated");
-        }
-        // Fetch the workout that matches the userId and title
-        const workout = await ctx.db
-            .query("workouts")
-            .filter((q) => q.eq(q.field("userId"), identity.subject)) // Filter by userId
-            .filter((q) => q.eq(q.field("title"), args.title)) // Filter by title
-            .first(); // Get the first matching workout
-        if (!workout) {
-            return null; // Return null if no workout is found
-        }
-        // return workout.exercises; // Return the exercises array
+        const workout = await ctx.db.get(args.workoutId);
+        return workout;
     },
 });
-
 
 export const createWorkout = mutation({
     args: {

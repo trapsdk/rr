@@ -24,6 +24,7 @@ export default function Workout() {
     const deleteWorkout = useMutation(api.workouts.deleteWorkout)
     const markDate = useMutation(api.markeddates.createMarkedDates);
     const updateWorkoutExercises = useMutation(api.workouts.updateWorkoutExercises);
+
     // const variables
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [workoutName, setWorkoutName] = React.useState("");
@@ -35,7 +36,13 @@ export default function Workout() {
     const [weight, setWeight] = useState("");
     const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; weight: number }[]>([]);
     const [selectedWorkout, setSelectedWorkout] = useState<any | null>(null);
-
+    // type definitions
+    type Exercise = {
+        name: string;
+        reps: number;
+        sets: number;
+        weight: number;
+    }
     // const functions
     const handleLogWorkout = async () => {
         const date = new Date();
@@ -63,9 +70,6 @@ export default function Workout() {
         setWorkoutModalVisible(false);
         setSelectedWorkout(null);
     };
-
-
-
 
     const handleDeleteWorkout = async () => {
         Alert.alert(
@@ -100,6 +104,17 @@ export default function Workout() {
             setExercises([]);
         }
     };
+
+    const handleExerciseChangeView = () => {
+        onRefresh();
+        setCurrentView("workout");
+    }
+
+    const onRefresh = async () => {
+        const refreshedWorkout = useQuery(api.workouts.getExercisesByWorkout, {workoutId: selectedWorkout._id});
+        setSelectedWorkout(refreshedWorkout);
+        console.log(refreshedWorkout);
+    };
     const handleCloseWorkoutModal = () => {
         setWorkoutModalVisible(false);
         setCurrentView("workoutTitle")
@@ -128,6 +143,40 @@ export default function Workout() {
             alert("Please fill in all fields.");
         }
     };
+
+    const handleUpdateExercise = async (index: number, field: keyof Exercise, value: string) => {
+        const updatedExercise = { ...selectedWorkout.exercises[index] };
+        switch (field) {
+            case 'name':
+                updatedExercise[field] = value;
+                break;
+            case 'sets':
+            case 'reps':
+            case 'weight':
+                updatedExercise[field] = parseInt(value, 10);
+                break;
+            default:
+                console.error(`Unknown field: ${field}`);
+                break;
+        }
+        // updatedExercise[field] = value;
+        console.log(updatedExercise)
+        console.log("Exercise Modified ^")
+        // creating a copy of the selected workout exercise array
+        const updatedExercises = [...selectedWorkout.exercises];
+        // update the value at the specified index for that exercise
+        updatedExercises[index] = updatedExercise;
+        // debug the change of updated exercise array
+        console.log(updatedExercises)
+        //calling convex mutation to update the exercise of the selected workout
+        await updateWorkoutExercises({
+            workoutId: selectedWorkout._id,
+            exercises: updatedExercises
+        })
+
+    };
+
+
     // return function
     return(
         // clerk authentication wrapper
@@ -338,32 +387,15 @@ export default function Workout() {
                                     <Text style={deep.modalTitle}>Tap to Edit Exercises</Text>
                                 </View>
                                 <View style={{ flex: 3, top: -25 }}>
-                                    {/*<FlatList*/}
-                                    {/*    data={selectedWorkout?.exercises}*/}
-                                    {/*    keyExtractor={(item, index) => index.toString()}*/}
-                                    {/*    renderItem={({item}: {item: {name: string, sets: number, reps: number, weight: number}}) => (*/}
-                                    {/*        <View style={deep.exerciseListItem}>*/}
-                                    {/*            <TextInput style={deep.exerciseText}>*/}
-                                    {/*                {item.name} - {item.sets} sets x {item.reps} reps, {item.weight} lbs*/}
-                                    {/*            </TextInput>*/}
-                                    {/*        </View>*/}
-                                    {/*    )}*/}
-                                    {/*    ListEmptyComponent={*/}
-                                    {/*        <Text>No exercises added yet.</Text>*/}
-                                    {/*    }*/}
-                                    {/*/>*/}
                                     <FlatList
                                         data={selectedWorkout?.exercises}
-                                        // keyExtractor={(item, index) => item.name.toString()}
                                         renderItem={({ item, index }) => (
-
-                                            <View style={[deep.exerciseListItem, { flexDirection: 'row',
+                                            <View style={[deep.editExerciseListItem, { flexDirection: 'row',
                                                 justifyContent: 'center' }]}>
-
                                                 <TextInput
                                                     style={deep.exerciseText}
                                                     defaultValue={item.name}
-                                                    onChangeText={()=> null}
+                                                    onChangeText={(value)=> handleUpdateExercise(index, "name", value)}
                                                 />
                                                 <Text> - Sets: </Text>
                                                 <TextInput
@@ -371,7 +403,7 @@ export default function Workout() {
                                                     defaultValue={item.sets.toString()}
                                                     keyboardType="numeric"
                                                     returnKeyType={"done"}
-                                                    onChangeText={()=> null}
+                                                    onChangeText={(value)=> handleUpdateExercise(index, "sets", value)}
                                                 />
                                                 <Text>, Reps: </Text>
                                                 <TextInput
@@ -379,7 +411,7 @@ export default function Workout() {
                                                     defaultValue={item.reps.toString()}
                                                     keyboardType="numeric"
                                                     returnKeyType={"done"}
-                                                    onChangeText={()=> null}
+                                                    onChangeText={(value)=> handleUpdateExercise(index, "reps", value)}
                                                 />
                                                 <Text>, Weight: </Text>
                                                 <TextInput
@@ -387,27 +419,19 @@ export default function Workout() {
                                                     defaultValue={item.weight.toString()}
                                                     keyboardType="numeric"
                                                     returnKeyType={"done"}
-                                                    onChangeText={()=> null}
+                                                    onChangeText={(value)=> handleUpdateExercise(index, "weight", value)}
                                                 />
                                                 <Text> lbs</Text>
-
-
                                             </View>
                                         )}
                                         ListEmptyComponent={
                                             <Text>No exercises added yet.</Text>
                                         }
                                     />
-
-                                    {/*<TouchableOpacity onPress={() => null}>*/}
-                                    {/*    <Text>Submit Changes</Text>*/}
-                                    {/*</TouchableOpacity>*/}
-
                                 </View>
-
                                 <View style={{flex: 1}}>
                                     <View style={{top: -100}}>
-                                        <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=> setCurrentView("workout")}>
+                                        <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=> handleExerciseChangeView() }>
                                             <Text style={deep.workoutButtonsText}>Back to Workout</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -463,7 +487,6 @@ const deep = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: 120,
-        // bottom: -155,
     },
     workoutButtonsText:{
         fontSize: 20,
@@ -483,6 +506,13 @@ const deep = StyleSheet.create({
         borderColor: "#202324",
         borderWidth: 1,
         borderRadius: 5,
+        alignItems: "center",
+    },
+    editExerciseListItem: {
+        padding: 15,
+        marginVertical: 15,
+        borderColor: "#d5d5d5",
+        borderBottomWidth: 1,
         alignItems: "center",
     },
     flatlistbg: {
