@@ -65,6 +65,23 @@ export const createWorkout = mutation({
     }
 })
 
+export const updateWorkoutExercises = mutation({
+    args: {
+        workoutId: v.id("workouts"),
+        exercises: v.array(v.object({
+            name: v.string(),
+            sets: v.number(),
+            reps: v.number(),
+            weight: v.number(),
+        })),
+    },
+    handler: async (ctx, args) => {
+        await ctx.db.patch(args.workoutId, {
+            exercises: args.exercises,
+        });
+    },
+});
+
 export const deleteWorkout = mutation({
     args: { id: v.id("workouts") },
     handler: async (ctx, args) => {

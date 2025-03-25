@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
-    Modal, Keyboard, Alert, Button
+    Modal, Keyboard, Alert,
 } from 'react-native'
 
 import {ClerkLoaded} from '@clerk/clerk-expo'
@@ -23,6 +23,7 @@ export default function Workout() {
     const addWorkout = useMutation(api.workouts.createWorkout);
     const deleteWorkout = useMutation(api.workouts.deleteWorkout)
     const markDate = useMutation(api.markeddates.createMarkedDates);
+    const updateWorkoutExercises = useMutation(api.workouts.updateWorkoutExercises);
     // const variables
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [workoutName, setWorkoutName] = React.useState("");
@@ -34,6 +35,7 @@ export default function Workout() {
     const [weight, setWeight] = useState("");
     const [exercises, setExercises] = useState<{ name: string; reps: number; sets: number; weight: number }[]>([]);
     const [selectedWorkout, setSelectedWorkout] = useState<any | null>(null);
+
     // const functions
     const handleLogWorkout = async () => {
         const date = new Date();
@@ -61,6 +63,9 @@ export default function Workout() {
         setWorkoutModalVisible(false);
         setSelectedWorkout(null);
     };
+
+
+
 
     const handleDeleteWorkout = async () => {
         Alert.alert(
@@ -333,24 +338,79 @@ export default function Workout() {
                                     <Text style={deep.modalTitle}>Tap to Edit Exercises</Text>
                                 </View>
                                 <View style={{ flex: 3, top: -25 }}>
+                                    {/*<FlatList*/}
+                                    {/*    data={selectedWorkout?.exercises}*/}
+                                    {/*    keyExtractor={(item, index) => index.toString()}*/}
+                                    {/*    renderItem={({item}: {item: {name: string, sets: number, reps: number, weight: number}}) => (*/}
+                                    {/*        <View style={deep.exerciseListItem}>*/}
+                                    {/*            <TextInput style={deep.exerciseText}>*/}
+                                    {/*                {item.name} - {item.sets} sets x {item.reps} reps, {item.weight} lbs*/}
+                                    {/*            </TextInput>*/}
+                                    {/*        </View>*/}
+                                    {/*    )}*/}
+                                    {/*    ListEmptyComponent={*/}
+                                    {/*        <Text>No exercises added yet.</Text>*/}
+                                    {/*    }*/}
+                                    {/*/>*/}
                                     <FlatList
                                         data={selectedWorkout?.exercises}
-                                        keyExtractor={(item, index) => index.toString()}
-                                        renderItem={({item}: {item: {name: string, sets: number, reps: number, weight: number}}) => (
-                                            <View style={deep.exerciseListItem}>
-                                                <TextInput style={deep.exerciseText}>
-                                                    {item.name} - {item.sets} sets x {item.reps} reps, {item.weight} lbs
-                                                </TextInput>
+                                        // keyExtractor={(item, index) => item.name.toString()}
+                                        renderItem={({ item, index }) => (
+
+                                            <View style={[deep.exerciseListItem, { flexDirection: 'row',
+                                                justifyContent: 'center' }]}>
+
+                                                <TextInput
+                                                    style={deep.exerciseText}
+                                                    defaultValue={item.name}
+                                                    onChangeText={()=> null}
+                                                />
+                                                <Text> - Sets: </Text>
+                                                <TextInput
+                                                    style={deep.exerciseText}
+                                                    defaultValue={item.sets.toString()}
+                                                    keyboardType="numeric"
+                                                    returnKeyType={"done"}
+                                                    onChangeText={()=> null}
+                                                />
+                                                <Text>, Reps: </Text>
+                                                <TextInput
+                                                    style={deep.exerciseText}
+                                                    defaultValue={item.reps.toString()}
+                                                    keyboardType="numeric"
+                                                    returnKeyType={"done"}
+                                                    onChangeText={()=> null}
+                                                />
+                                                <Text>, Weight: </Text>
+                                                <TextInput
+                                                    style={deep.exerciseText}
+                                                    defaultValue={item.weight.toString()}
+                                                    keyboardType="numeric"
+                                                    returnKeyType={"done"}
+                                                    onChangeText={()=> null}
+                                                />
+                                                <Text> lbs</Text>
+
+
                                             </View>
                                         )}
                                         ListEmptyComponent={
                                             <Text>No exercises added yet.</Text>
                                         }
                                     />
+
+                                    {/*<TouchableOpacity onPress={() => null}>*/}
+                                    {/*    <Text>Submit Changes</Text>*/}
+                                    {/*</TouchableOpacity>*/}
+
                                 </View>
 
                                 <View style={{flex: 1}}>
-                                    <Button title="Back to Workout" onPress={() => setCurrentView("workout")}></Button>
+                                    <View style={{top: -100}}>
+                                        <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=> setCurrentView("workout")}>
+                                            <Text style={deep.workoutButtonsText}>Back to Workout</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         </>
@@ -411,7 +471,7 @@ const deep = StyleSheet.create({
         color: 'white',
     },
     exerciseText: {
-        fontSize: 17,
+        fontSize: 16,
         color: "#000000",
         fontFamily: "Poppins-Regular",
         textAlign: "center",

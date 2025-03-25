@@ -42,9 +42,9 @@ export default function HomeScreen() {
                     textDayFontFamily: "Poppins-Regular",
                     textMonthFontFamily: "Poppins-Regular",
                     textDayHeaderFontFamily: "Poppins-Regular",
-                    todayTextColor: 'white',
-                    dayTextColor: 'black',
-                    todayBackgroundColor: 'black',
+                    todayTextColor: '#333333',
+                    dayTextColor: '#333333',
+                    todayBackgroundColor: '#f5f5f5',
                 }}
 
             />
