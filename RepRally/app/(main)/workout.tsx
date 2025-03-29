@@ -50,11 +50,11 @@ export default function Workout() {
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
+        // add statement to determine if markedDate already exists in convex database
+        // if it does, then add alert saying a workout has already been logged!
         await markDate({
             date: formattedDate,
-            selected: false,
-            marked: true,
-            dotColor: "black",
+            title: selectedWorkout.title,
         })
         alert("Workout has been logged to Calender.");
     };
@@ -145,6 +145,7 @@ export default function Workout() {
     };
 
     const handleUpdateExercise = async (index: number, field: keyof Exercise, value: string) => {
+        // creating a copy of the selected workout's exercise that we are editing.
         const updatedExercise = { ...selectedWorkout.exercises[index] };
         switch (field) {
             case 'name':
@@ -168,15 +169,14 @@ export default function Workout() {
         updatedExercises[index] = updatedExercise;
         // debug the change of updated exercise array
         console.log(updatedExercises)
+        // update selected workout state
+        setSelectedWorkout({ ...selectedWorkout, exercises: updatedExercises });
         //calling convex mutation to update the exercise of the selected workout
         await updateWorkoutExercises({
             workoutId: selectedWorkout._id,
             exercises: updatedExercises
         })
-
     };
-
-
     // return function
     return(
         // clerk authentication wrapper
@@ -431,8 +431,9 @@ export default function Workout() {
                                 </View>
                                 <View style={{flex: 1}}>
                                     <View style={{top: -100}}>
-                                        <TouchableOpacity style={mainStyles.addWorkoutButton} onPress={()=> handleExerciseChangeView() }>
-                                            <Text style={deep.workoutButtonsText}>Back to Workout</Text>
+                                        {/*I need to change the width of this button so that it doesn't adjust based on view*/}
+                                        <TouchableOpacity style={deep.workoutButtons} onPress={()=> handleExerciseChangeView() }>
+                                            <Text style={deep.workoutButtonsText}>Save Workout</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>

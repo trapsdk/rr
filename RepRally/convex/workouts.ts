@@ -5,7 +5,7 @@ export const list = query({
     args: {},
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
-        console.log("Identity:", identity);
+        // console.log("Identity:", identity);
         if (identity === null) {
             throw new Error("Not authenticated");
         }

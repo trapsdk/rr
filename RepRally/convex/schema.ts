@@ -15,10 +15,10 @@ export default defineSchema({
     }),
     markedDates: defineTable({
         userId: v.string(),
+        title: v.string(),
         date: v.string(),
-        selected: v.boolean(),
-        marked: v.boolean(),
         dotColor: v.string(),
+        marked: v.boolean(),
     }),
     tomorrowDate: defineTable({
         tommorrowDate: v.string(),

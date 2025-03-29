@@ -5,11 +5,11 @@ export const getMarkedDates = query({
     args: {},
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
-        console.log("Identity:", identity);
+        // console.log("Identity:", identity);
         if (identity === null) {
             throw new Error("Not authenticated");
         }
-        console.log("Subject:", identity.subject);
+        // console.log("Subject:", identity.subject);
         return await ctx.db
             .query("markedDates")
             .filter(q =>
@@ -21,9 +21,7 @@ export const getMarkedDates = query({
 export const createMarkedDates = mutation({
     args: {
         date: v.string(),
-        selected: v.boolean(),
-        marked: v.boolean(),
-        dotColor: v.string(),
+        title: v.string(),
     },
     handler: async (ctx, args) => {
         const auth = await ctx.auth.getUserIdentity()
@@ -34,9 +32,9 @@ export const createMarkedDates = mutation({
         await ctx.db.insert("markedDates", {
             userId: auth?.subject,
             date: args.date,
-            selected: args.selected,
-            marked: args.marked,
-            dotColor: args.dotColor,
+            title: args.title,
+            dotColor: "black",
+            marked: true,
         })
     }
 });
